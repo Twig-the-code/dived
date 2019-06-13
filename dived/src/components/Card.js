@@ -1,14 +1,13 @@
 import React from 'react';
-import CardSection from "./CardSection";
 import './Card.css';
 
 class Card extends React.Component{
   render() {
+    const {card, status} = this.props
+    return <a role="button" className={`card card--${card.type} card--${status}`}>
+      {card.id}
 
-    return <div className={`card`}>
-      {this.props.card.id}
-
-    </div>
+    </a>
   }
 }
 export default Card;
