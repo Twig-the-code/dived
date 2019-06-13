@@ -4,6 +4,17 @@ import './App.css';
 import Header from "./components/Header";
 import Cards from "./components/Cards";
 
+const card1={id:1 , name: "Testi"}
+const card2={id:2 , name: "Testi"}
+const card3={id:3 , name: "Testi"}
+
+const cards={
+  yellow: [card1, card2, card3,],
+  red: [card1, card2, card3,],
+  green: [card1, card2, card3,],
+  blue: [card1, card2, card3,],
+}
+
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -12,7 +23,8 @@ class App extends React.Component {
       journey: {
         total: 35,
         finished: 3,
-      }
+      },
+      cards,
     }
   }
 
@@ -26,7 +38,7 @@ class App extends React.Component {
         >
 
         </Header>
-        <Cards>
+        <Cards cards={this.state.cards}>
 
         </Cards>
       </div>

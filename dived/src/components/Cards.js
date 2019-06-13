@@ -1,8 +1,16 @@
 import React from 'react';
+import CardSection from "./CardSection";
 
-class Header extends React.Component{
+class Cards extends React.Component{
   render() {
-    return <p>Header</p>
+    const sections = []
+    for (const [colour, cards] of Object.entries(this.props.cards)){
+      sections.push(<CardSection colour={colour} cards={cards}>{colour}</CardSection>)
+    }
+    return <div>
+      {sections}
+
+    </div>
   }
 }
-export default Header;
+export default Cards;
