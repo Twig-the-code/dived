@@ -14,12 +14,19 @@ const updateState = async (comp) => {
 
 }
 
-const markCardAsFinished = card => {
+const markCardAsFinished = comp => card => {
+  // Send data to backend!
   console.log({card})
+  // update state
+  const {finishedCards} = comp.state
+  comp.setState(state => ({
+    finishedCards: [...finishedCards, card.id]
+  }))
 }
-const actions = {
-  markCardAsFinished
-}
+
+const actions = comp => ({
+  markCardAsFinished: markCardAsFinished(comp)
+})
 
 class App extends React.Component {
   constructor(props) {
@@ -33,8 +40,6 @@ class App extends React.Component {
   }
 
   render() {
-
-
     return (
       <main className="App">
         <Header name={this.state.name}
@@ -42,7 +47,7 @@ class App extends React.Component {
         >
 
         </Header>
-        <Cards cards={this.state.cards} finishedCards={this.state.finishedCards} actions={actions}>
+        <Cards cards={this.state.cards} finishedCards={this.state.finishedCards} actions={actions(this)}>
 
         </Cards>
       </main>

@@ -9,6 +9,19 @@
     background: #61dafb;
 }
 
+.card--yellow.card--finished {
+    background: beige;
+}
+
+.card--pink.card--finished {
+    background: crimson;
+}
+
+.card--green.card--finished {
+    background: aquamarine;
+}
+
+
 .card--unfinished{
     background: aliceblue;
 }
