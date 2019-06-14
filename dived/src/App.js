@@ -29,7 +29,7 @@ class App extends React.Component {
 
 
     return (
-      <div className="App">
+      <main className="App">
         <Header name={this.state.name}
                 journey={this.state.journey}
         >
@@ -38,7 +38,7 @@ class App extends React.Component {
         <Cards cards={this.state.cards} finishedCards={this.state.finishedCards}>
 
         </Cards>
-      </div>
+      </main>
     );
   }
 }
