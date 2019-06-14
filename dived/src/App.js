@@ -5,6 +5,9 @@ import Header from "./components/Header";
 import Cards from "./components/Cards";
 import getAllCards from "./actions/get-all-cards";
 import getAllFinishedCards from "./actions/get-all-finished-cards";
+import Amplify from 'aws-amplify'
+import config from './aws-exports'
+Amplify.configure(config)
 
 const updateState = async (comp) => {
   const cards = await getAllCards()
