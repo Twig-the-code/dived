@@ -1,0 +1,19 @@
+type Cards
+@model
+@auth(
+    rules: [
+        {allow: all, operations: [read]},
+    ]) {
+    id: ID!
+    number: Int!
+    name: String!
+    type: CardType!
+    description: String
+}
+
+enum CardType {
+    culture
+    language
+    multilanguage
+    digi
+}
