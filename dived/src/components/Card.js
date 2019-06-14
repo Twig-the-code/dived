@@ -11,7 +11,7 @@ class Card extends React.Component{
       className={`card card--${card.type} card--${status}`}
       onClick={event => this.handleClick(card)}
     >
-      {card.id}
+      {card.number}
 
     </a>
   }

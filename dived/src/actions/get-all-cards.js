@@ -15,7 +15,7 @@ const cards= [card1, card2, card3, card4, card5, card6]
 // next, we create a function to interact with the API
 
 export default async function () {
-  const data = await API.graphql(graphqlOperation(listCardss))
+  const {data} = await API.graphql(graphqlOperation(listCardss))
   console.log('blog successfully fetched', data)
-  return cards;
+  return data.listCardss.items;
 }

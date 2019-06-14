@@ -1,11 +1,14 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Amplify, {Auth} from 'aws-amplify'
+import {withAuthenticator} from 'aws-amplify-react'
+
 import Header from "./components/Header";
 import Cards from "./components/Cards";
 import getAllCards from "./actions/get-all-cards";
 import getAllFinishedCards from "./actions/get-all-finished-cards";
-import Amplify from 'aws-amplify'
+
+import './App.css';
+
 import config from './aws-exports'
 Amplify.configure(config)
 
@@ -58,4 +61,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withAuthenticator(App, true);;

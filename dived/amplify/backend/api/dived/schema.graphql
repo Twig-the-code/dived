@@ -2,11 +2,11 @@ type Cards
 @model
 @auth(
     rules: [
-        {allow: all, operations: [read]},
+        {allow: groups, groups: ["admins"], mutations: [create, update, delete], queries: null},
+        {allow: groups, groups: ["teams"], mutations: null, queries: [get, list]}
     ]) {
     id: ID!
     number: Int!
-    name: String!
     type: CardType!
     description: String
 }
