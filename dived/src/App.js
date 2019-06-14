@@ -14,6 +14,13 @@ const updateState = async (comp) => {
 
 }
 
+const markCardAsFinished = card => {
+  console.log({card})
+}
+const actions = {
+  markCardAsFinished
+}
+
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -35,7 +42,7 @@ class App extends React.Component {
         >
 
         </Header>
-        <Cards cards={this.state.cards} finishedCards={this.state.finishedCards}>
+        <Cards cards={this.state.cards} finishedCards={this.state.finishedCards} actions={actions}>
 
         </Cards>
       </main>

@@ -23,7 +23,9 @@ class Cards extends React.Component {
 
   createCard() {
     return card => <Card key={card.id} card={card}
-                         status={isFinished(this.props.finishedCards, card)}/>;
+                         status={isFinished(this.props.finishedCards, card)}
+                         actions={this.props.actions}
+    />;
   }
 
 // doMagicThings :: _ => JSX
