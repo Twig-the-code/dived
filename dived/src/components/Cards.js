@@ -10,9 +10,9 @@ const isFinished = (finishedCards, card) => {
 
 class Cards extends React.Component {
   render() {
-    return <main className="card-container">
+    return <article className="card-container">
       {this.createAllCards(this.props.cards)}
-    </main>
+    </article>
   }
 
   createAllCards(cards) {

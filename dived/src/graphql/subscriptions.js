@@ -5,7 +5,6 @@ export const onCreateCards = `subscription OnCreateCards {
   onCreateCards {
     id
     number
-    name
     type
     description
   }
@@ -15,7 +14,6 @@ export const onUpdateCards = `subscription OnUpdateCards {
   onUpdateCards {
     id
     number
-    name
     type
     description
   }
@@ -25,9 +23,44 @@ export const onDeleteCards = `subscription OnDeleteCards {
   onDeleteCards {
     id
     number
-    name
     type
     description
+  }
+}
+`;
+export const onCreateProgress = `subscription OnCreateProgress {
+  onCreateProgress {
+    id
+    card {
+      id
+      number
+      type
+      description
+    }
+  }
+}
+`;
+export const onUpdateProgress = `subscription OnUpdateProgress {
+  onUpdateProgress {
+    id
+    card {
+      id
+      number
+      type
+      description
+    }
+  }
+}
+`;
+export const onDeleteProgress = `subscription OnDeleteProgress {
+  onDeleteProgress {
+    id
+    card {
+      id
+      number
+      type
+      description
+    }
   }
 }
 `;

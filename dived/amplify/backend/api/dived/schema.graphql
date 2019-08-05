@@ -17,3 +17,42 @@ enum CardType {
     multilanguage
     digi
 }
+
+type Progress
+@model
+@auth(
+    rules: [
+        {allow: owner}
+    ]
+){
+    id: ID!
+    card: Cards! @connection
+}
+
+
+type Location {
+    lat: Float
+    lon: Float
+}
+
+type School
+@model
+@auth(
+    rules: [
+        {allow: groups, groups: ["admins"]}
+    ]
+)
+@key(fields: ["id", "city", "name"])
+@key(name: "ByCity", fields: ["city"], queryField: "schoolByCity")
+{
+    id: ID!
+    name: String!
+    city: String!
+    location: Location
+}
+
+type query {
+
+}
+
+#School -> account -> Progress

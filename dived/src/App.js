@@ -4,15 +4,18 @@ import {withAuthenticator} from 'aws-amplify-react'
 
 import Header from "./components/Header";
 import Cards from "./components/Cards";
+import Info from "./components/Info";
 import getAllCards from "./actions/get-all-cards";
 import getAllFinishedCards from "./actions/get-all-finished-cards";
+import markAsFinished from "./actions/mark-card-as-finished";
+
 
 import './App.css';
 
 import config from './aws-exports'
 Amplify.configure(config)
 
-const updateState = async (comp) => {
+const updateInitialState = async (comp) => {
   const cards = await getAllCards()
   comp.setState(state => ({cards}))
   const finishedCards = await getAllFinishedCards()
@@ -20,8 +23,9 @@ const updateState = async (comp) => {
 
 }
 
-const markCardAsFinished = comp => card => {
+const markCardAsFinished = comp => async card => {
   // Send data to backend!
+  const data = await markAsFinished(card.id)
   console.log({card})
   // update state
   const {finishedCards} = comp.state
@@ -42,7 +46,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    updateState(this)
+    updateInitialState(this)
   }
 
   render() {
@@ -56,9 +60,30 @@ class App extends React.Component {
         <Cards cards={this.state.cards} finishedCards={this.state.finishedCards} actions={actions(this)}>
 
         </Cards>
+        <Info/>
       </main>
     );
   }
 }
 
-export default withAuthenticator(App, true);;
+const signUpConfig = {
+  // hideAllDefaults: true,
+  signUpFields: [
+    {
+      label: 'Käyttäjänimi',
+      key: 'username',
+      required: true,
+      placeholder: 'Käyttäjänimi',
+      type: 'string',
+      displayOrder: 1
+    },
+    {
+      label: 'Salasana',
+      key: 'password',
+      required: true,
+      placeholder: 'Salasana',
+      type: 'password',
+      displayOrder: 2
+    }
+  ]
+};export default withAuthenticator(App, true);
