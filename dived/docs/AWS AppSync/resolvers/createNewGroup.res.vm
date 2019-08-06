@@ -1,0 +1,18 @@
+## Below example shows how to create an object from all provided GraphQL arguments
+## The primary key of the obejct is a randomly generated UUD using the $util.autoId() utility
+## Other utilities include $util.matches() for regular expressions, $util.time.nowISO8601() or
+##   $util.time.nowEpochMilliSeconds() for timestamps, and even List or Map helpers like
+##   $util.list.copyAndRetainAll() $util.map.copyAndRemoveAllKeys() for shallow copies
+## Read more: https://docs.aws.amazon.com/appsync/latest/devguide/resolver-context-reference.html#utility-helpers-in-util
+
+#set($myResults = [])
+#foreach($item in $ctx.result.items)
+    ## For Cognito User Pools use $ctx.identity.username instead
+    ## #if($item.pk == $ctx.identity.cognitoIdentityId)
+    #if($item.pk == $ctx.identity.username)
+        #set( $res = {id: $item.pk, createdAt: $item.data })
+        #set($added = $myResults.add($res))
+    #end
+#end
+$utils.toJson($myResults)
+}

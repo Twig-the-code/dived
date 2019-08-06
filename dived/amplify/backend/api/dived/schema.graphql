@@ -1,9 +1,16 @@
-type Cards
+enum CardType {
+    culture
+    language
+    multilanguage
+    digi
+}
+
+type Card
 @model
 @auth(
     rules: [
         {allow: groups, groups: ["admins"], mutations: [create, update, delete], queries: null},
-        {allow: groups, groups: ["teams"], mutations: null, queries: [get, list]}
+        {allow: groups, groups: ["admins","teams"], mutations: null, queries: [get, list]}
     ]) {
     id: ID!
     number: Int!
@@ -11,12 +18,26 @@ type Cards
     description: String
 }
 
-enum CardType {
-    culture
-    language
-    multilanguage
-    digi
+input CardTypeFilterInput {
+    eq: CardType
+    ne: CardType
 }
+
+input FilterAllCardsInput {
+    type: CardTypeFilterInput
+    and: [FilterAllCardsInput]
+    or: [FilterAllCardsInput]
+    not: FilterAllCardsInput
+}
+
+type AllCardsResponse {
+    items: [Card]
+}
+
+type Query {
+    scanAllCards: AllCardsResponse
+}
+
 
 type Progress
 @model
@@ -26,7 +47,7 @@ type Progress
     ]
 ){
     id: ID!
-    card: Cards! @connection
+    card: Card! @connection
 }
 
 
@@ -40,6 +61,7 @@ type School
 @auth(
     rules: [
         {allow: groups, groups: ["admins"]}
+        {allow: groups, groups: ["teams"], mutations: null, queries: [get, list]}
     ]
 )
 @key(fields: ["id", "city", "name"])
@@ -50,9 +72,3 @@ type School
     city: String!
     location: Location
 }
-
-type query {
-
-}
-
-#School -> account -> Progress
