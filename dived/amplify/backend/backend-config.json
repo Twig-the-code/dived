@@ -6,7 +6,7 @@
 		}
 	},
 	"api": {
-		"dived": {
+		"DivED": {
 			"service": "AppSync",
 			"providerPlugin": "awscloudformation",
 			"output": {

@@ -9,12 +9,11 @@
     "version" : "2017-02-28",
     "operation" : "PutItem",
     "key" : {
-        ##"pk": $util.dynamodb.toDynamoDBJson($ctx.args.input.pk),
-        "pk": $ctx.identity.username
-        "sk": "GROUP"
-        "data": $util.time.nowEpochMilliSeconds()
-        },
-    "attributeValues" : $util.dynamodb.toMapValuesJson($ctx.args)
+        "pk": $util.dynamodb.toDynamoDBJson($ctx.identity.username),
+        "sk": $util.dynamodb.toDynamoDBJson("GROUP"),
+        "data": $util.dynamodb.toDynamoDBJson($util.time.nowISO8601())
+    },
+    "attributeValues" : $util.dynamodb.toMapValuesJson($ctx.args),
     "condition": {
         "expression": "attribute_not_exists(#pk) AND attribute_not_exists(#sk)",
         "expressionNames": {

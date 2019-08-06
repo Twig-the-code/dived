@@ -5,14 +5,9 @@
 ##   $util.list.copyAndRetainAll() $util.map.copyAndRemoveAllKeys() for shallow copies
 ## Read more: https://docs.aws.amazon.com/appsync/latest/devguide/resolver-context-reference.html#utility-helpers-in-util
 
-#set($myResults = [])
-#foreach($item in $ctx.result.items)
-    ## For Cognito User Pools use $ctx.identity.username instead
-    ## #if($item.pk == $ctx.identity.cognitoIdentityId)
-    #if($item.pk == $ctx.identity.username)
-        #set( $res = {id: $item.pk, createdAt: $item.data })
-        #set($added = $myResults.add($res))
-    #end
+#set($res = {})
+#if($context.result.pk == $ctx.identity.username)
+    #set( $res = {"id": $context.result.pk, "createdAt": $context.result.data })
 #end
-$utils.toJson($myResults)
-}
+$utils.toJson($res)
+

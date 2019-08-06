@@ -1,5 +1,5 @@
 projects:
-  dived:
+  DivED:
     schemaPath: src/graphql/schema.json
     includes:
       - src/graphql/**/*.js
@@ -10,3 +10,5 @@ projects:
         codeGenTarget: javascript
         generatedFileName: ''
         docsFilePath: src/graphql
+        region: eu-west-1
+        maxDepth: 3
