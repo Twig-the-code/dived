@@ -1,139 +1,210 @@
-input CreateDivEDProgressInput {
-  data: String!
-  pk: String!
-  sk: String!
-  json: AWSJSON
+# CARDS
+input AddFinishedCardInput {
+	cardId: ID!
+}
+
+type Card {
+	id: ID!
+	number: Int!
+	type: CardType!
+}
+
+input CardFilterInput {
+	id: ModelIDFilterInput
+	number: ModelIntFilterInput
+	type: ModelCardTypeFilterInput
+	and: [CardFilterInput]
+	or: [CardFilterInput]
+	not: CardFilterInput
+}
+
+type CardProgress {
+	id: ID!
+}
+
+enum CardType {
+	culture
+	language
+	multilanguage
+	digi
+}
+
+input CreateCardInput {
+	number: Int!
+	type: CardType!
+}
+
+# PROGRESSES
+input CreateDivEdProgressInput {
+	pk: String!
+	sk: String!
+	data: String!
 }
 
 input CreateGroupInput {
-  pk: String!
-  data: String!
-  json: AWSJSON
+	json: AWSJSON
+}
+
+type Data {
+	pk: String!
+	sk: String!
+	data: String!
+}
+
+input DeleteDivEdProgressInput {
+	pk: String!
+	sk: String!
 }
 
 type DivEDGroup {
-  id: String!
-  createdAt: String!
+	id: String!
+	createdAt: AWSDateTime!
 }
 
-input DeleteDivEDProgressInput {
-  pk: String!
-  sk: String!
+type DivEdProgress {
+	pk: String!
+	sk: String!
+	data: String!
 }
 
-type DivEDProgress {
-  data: String!
-  pk: String!
-  sk: String!
-  json: AWSJSON
+type DivEdProgressConnection {
+	items: [DivEdProgress]
+	nextToken: String
 }
 
-type DivEDProgressConnection {
-  items: [DivEDProgress]
-  nextToken: String
+type GroupProgressConnection {
+	items: [CardProgress]
+	nextToken: String
+}
+
+type ListOfCards {
+	items: [Card]
+	nextToken: String
+}
+
+input ModelCardTypeFilterInput {
+	eq: CardType
+	ne: CardType
+}
+
+# FILTER CARDS!
+input ModelIDFilterInput {
+	ne: ID
+	eq: ID
+	le: ID
+	lt: ID
+	ge: ID
+	gt: ID
+	contains: ID
+	notContains: ID
+	between: [ID]
+	beginsWith: ID
+}
+
+input ModelIntFilterInput {
+	ne: Int
+	eq: Int
+	le: Int
+	lt: Int
+	ge: Int
+	gt: Int
+	contains: Int
+	notContains: Int
+	between: [Int]
+}
+
+input ModelStringFilterInput {
+	ne: String
+	eq: String
+	le: String
+	lt: String
+	ge: String
+	gt: String
+	contains: String
+	notContains: String
+	between: [String]
+	beginsWith: String
 }
 
 type Mutation {
-  createGroup(input:CreateGroupInput): DivEDGroup
-  createDivEDProgress(input: CreateDivEDProgressInput!): DivEDProgress
-  updateDivEDProgress(input: UpdateDivEDProgressInput!): DivEDProgress
-  deleteDivEDProgress(input: DeleteDivEDProgressInput!): DivEDProgress
+	createCard(input: CreateCardInput!): Card
+	addFinishedCard(input: AddFinishedCardInput!): DivEDGroup
+	createGroup(input: CreateGroupInput): DivEDGroup
 }
 
 type Query {
-  getDivEDProgress(pk: String!, sk: String!): DivEDProgress
-  listDivEDProgresses(filter: TableDivEDProgressFilterInput, limit: Int, nextToken: String): DivEDProgressConnection
-  queryDivEDProgressesBySkDataIndex(sk: String!, first: Int, after: String): DivEDProgressConnection
+	listCards(filter: CardFilterInput, limit: Int, nextToken: String): ListOfCards
+	listGroupProgress(groupId: String!, limit: Int, nextToken: String): GroupProgressConnection
 }
 
 type Subscription {
-  onCreateDivEDProgress(
-  data: String,
-  pk: String,
-  sk: String,
-  json: AWSJSON
-  ): DivEDProgress
-  @aws_subscribe(mutations: ["createDivEDProgress"])
-  onUpdateDivEDProgress(
-  data: String,
-  pk: String,
-  sk: String,
-  json: AWSJSON
-  ): DivEDProgress
-  @aws_subscribe(mutations: ["updateDivEDProgress"])
-  onDeleteDivEDProgress(
-  data: String,
-  pk: String,
-  sk: String,
-  json: AWSJSON
-  ): DivEDProgress
-  @aws_subscribe(mutations: ["deleteDivEDProgress"])
+	onCreateGroup(pk: String, sk: String, data: String): DivEDGroup
+		@aws_subscribe(mutations: ["createGroup"])
 }
 
 input TableBooleanFilterInput {
-  ne: Boolean
-  eq: Boolean
+	ne: Boolean
+	eq: Boolean
 }
 
-input TableDivEDProgressFilterInput {
-  data: TableStringFilterInput
-  pk: TableStringFilterInput
-  sk: TableStringFilterInput
+input TableDivEdProgressFilterInput {
+	pk: TableStringFilterInput
+	sk: TableStringFilterInput
+	data: TableStringFilterInput
 }
 
 input TableFloatFilterInput {
-  ne: Float
-  eq: Float
-  le: Float
-  lt: Float
-  ge: Float
-  gt: Float
-  contains: Float
-  notContains: Float
-  between: [Float]
+	ne: Float
+	eq: Float
+	le: Float
+	lt: Float
+	ge: Float
+	gt: Float
+	contains: Float
+	notContains: Float
+	between: [Float]
 }
 
 input TableIDFilterInput {
-  ne: ID
-  eq: ID
-  le: ID
-  lt: ID
-  ge: ID
-  gt: ID
-  contains: ID
-  notContains: ID
-  between: [ID]
-  beginsWith: ID
+	ne: ID
+	eq: ID
+	le: ID
+	lt: ID
+	ge: ID
+	gt: ID
+	contains: ID
+	notContains: ID
+	between: [ID]
+	beginsWith: ID
 }
 
 input TableIntFilterInput {
-  ne: Int
-  eq: Int
-  le: Int
-  lt: Int
-  ge: Int
-  gt: Int
-  contains: Int
-  notContains: Int
-  between: [Int]
+	ne: Int
+	eq: Int
+	le: Int
+	lt: Int
+	ge: Int
+	gt: Int
+	contains: Int
+	notContains: Int
+	between: [Int]
 }
 
 input TableStringFilterInput {
-  ne: String
-  eq: String
-  le: String
-  lt: String
-  ge: String
-  gt: String
-  contains: String
-  notContains: String
-  between: [String]
-  beginsWith: String
+	ne: String
+	eq: String
+	le: String
+	lt: String
+	ge: String
+	gt: String
+	contains: String
+	notContains: String
+	between: [String]
+	beginsWith: String
 }
 
-input UpdateDivEDProgressInput {
-  data: String
-  pk: String!
-  sk: String!
-  json: AWSJSON
+input UpdateDivEdProgressInput {
+	pk: String!
+	sk: String!
+	data: String
 }

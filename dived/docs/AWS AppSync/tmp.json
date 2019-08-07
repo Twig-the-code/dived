@@ -1,0 +1,27 @@
+{
+  "version": "2017-02-28",
+  "operation": "PutItem",
+  "key": {
+    "pk": $util.dynamodb.toDynamoDBJson($identityValue),
+    "sk": $util.dynamodb.toDynamoDBJson($ctx.args.input.cardId),
+    "data": $util.dynamodb.toDynamoDBJson( "FINISHED" )
+  },
+  "attributeValues": {
+    "pk": $util.dynamodb.toDynamoDBJson($identityValue),
+    "sk": $util.dynamodb.toDynamoDBJson($ctx.args.input.cardId),
+    "data": $util.dynamodb.toDynamoDBJson( "FINISHED" ),
+    "createdAt": $util.dynamodb.toDynamoDBJson($util.time.nowISO8601())
+  },
+  "condition": {
+    "expression": "attribute_not_exists(#pk) and attribute_not_exists(#sk) and contains(#pk, :cardId) ",
+    "expressionNames": {
+      "#pk": "pk",
+      "#sk": "sk"
+    },
+    "expressionValues": {
+      ":cardId": {
+        "S": $ctx.args.input.cardId
+      }
+    }
+  }
+}

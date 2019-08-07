@@ -5,20 +5,9 @@
 ##   $util.list.copyAndRetainAll() $util.map.copyAndRemoveAllKeys() for shallow copies
 ## Read more: https://docs.aws.amazon.com/appsync/latest/devguide/resolver-context-reference.html#utility-helpers-in-util
 
-{
-    "version" : "2017-02-28",
-    "operation" : "PutItem",
-    "key" : {
-        "pk": $util.dynamodb.toDynamoDBJson($ctx.identity.username),
-        "sk": $util.dynamodb.toDynamoDBJson("GROUP"),
-        "data": $util.dynamodb.toDynamoDBJson($util.time.nowISO8601())
-    },
-    "attributeValues" : $util.dynamodb.toMapValuesJson($ctx.args),
-    "condition": {
-        "expression": "attribute_not_exists(#pk) AND attribute_not_exists(#sk)",
-        "expressionNames": {
-            "#pk": "pk",
-            "#sk": "sk",
-        },
-    },
-}
+#set($res = {})
+#if($context.result.pk == $ctx.identity.username)
+    #set( $res = {"id": $context.result.pk, "createdAt": $context.result.data })
+#end
+$utils.toJson($res)
+

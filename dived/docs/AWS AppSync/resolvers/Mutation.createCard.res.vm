@@ -1,0 +1,7 @@
+## Pass back the result from DynamoDB. **
+#set($res = {
+"id":$ctx.result.pk,
+"type": $ctx.result.data,
+"number": $ctx.result.json.number
+})
+$util.toJson($res)
