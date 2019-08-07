@@ -18,7 +18,7 @@ Amplify.configure(config)
 const updateInitialState = async (comp) => {
   const cards = await getAllCards()
   comp.setState(state => ({cards}))
-  const finishedCards = await getAllFinishedCards()
+  const finishedCards = await getAllFinishedCards("rinkkis1")
   comp.setState(state => ({finishedCards}))
 
 }

@@ -1,7 +1,13 @@
-import { API, graphqlOperation } from 'aws-amplify'
-import { createProgress } from './../graphql/mutations'
+import { addFinishedCard } from './../graphql/mutations'
+import {wrapGraphQLOperation} from "./wrap-promise";
 
-export default async function (progressCardId) {
-  const {data}     = await API.graphql(graphqlOperation(createProgress, {input: {progressCardId}}))
-  return data.createProgress.items;
+export default async function (cardId) {
+  console.log("Mark card as finished!", cardId)
+  const {done, error} = await wrapGraphQLOperation(addFinishedCard, {input: {cardId}})
+
+  console.log({done, error})
+  if(done){
+    return done.data.addFinishedCard.items;
+  }
+
 }

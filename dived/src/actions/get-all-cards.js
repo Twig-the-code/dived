@@ -1,7 +1,11 @@
 import {API, graphqlOperation} from 'aws-amplify'
-import {listCardss} from './../graphql/queries'
+import {listCards} from './../graphql/queries'
+import {wrapGraphQLOperation} from "./wrap-promise"
 
 export default async function () {
-  const {data} = await API.graphql(graphqlOperation(listCardss))
-  return data.listCardss.items;
+  console.log("get all cards!")
+  const {done: {data}, error} = await wrapGraphQLOperation(listCards)
+
+  console.log({data})
+  return data.listCards.items;
 }

@@ -1,12 +1,12 @@
 import { API, graphqlOperation } from 'aws-amplify'
-import { listProgresss } from './../graphql/queries'
+import { listGroupProgress } from './../graphql/queries'
 
-export default async function () {
-  const {data}     = await API.graphql(graphqlOperation(listProgresss));
+export default async function (groupId) {
+  const {data}     = await API.graphql(graphqlOperation(listGroupProgress, {groupId: groupId}));
   console.log('blog successfully fetched', data);
 
-  const getCardId = data => data.card.id;
+  const getCardId = data => data.id;
 
-  return data.listProgresss.items.map(getCardId);
+  return data.listGroupProgress.items.map(getCardId);
 
 }

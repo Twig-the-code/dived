@@ -37,7 +37,7 @@
         "ApiId": {
           "Ref": "AppSyncApiId"
         },
-        "DataSourceName": "DivED",
+        "DataSourceName": "CardTable",
         "TypeName": "Query",
         "FieldName": "scanAllCards",
         "RequestMappingTemplateS3Location": {
