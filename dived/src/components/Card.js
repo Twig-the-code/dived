@@ -3,6 +3,25 @@ import PropTypes from 'prop-types';
 import './Card.css';
 import Cards from "./Cards";
 
+
+class ConfirmOnClick extends React.Component{
+  constructor(props){
+    super(props)
+    this.state = {confirm: null}
+  }
+
+  render() {
+    const p = this.state.confirm ? this.state.confirm : <Card {...this.props}/>
+
+    return <div class="confirm">
+      {p}
+    </div>
+  }
+}
+
+
+
+
 class Card extends React.Component{
   render() {
     const {card, status } = this.props
@@ -30,4 +49,4 @@ Card.propTypes = {
 Card.defaultProps = {
 }
 
-export default Card;
+export default ConfirmOnClick;

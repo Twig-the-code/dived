@@ -86,4 +86,7 @@ const signUpConfig = {
       displayOrder: 2
     }
   ]
-};export default withAuthenticator(App, true);
+};
+
+export default withAuthenticator(App, true );
+// export default withAuthenticator(App, {signUpConfig} );
