@@ -13,6 +13,7 @@ import markAsFinished from "./actions/mark-card-as-finished";
 import './App.css';
 
 import config from './aws-exports'
+import Setup from "./components/Setup";
 Amplify.configure(config)
 
 const updateInitialState = async (comp) => {
@@ -38,6 +39,23 @@ const actions = comp => ({
   markCardAsFinished: markCardAsFinished(comp)
 })
 
+const fakeData = {
+  cities: [
+    {id: '853', nameFi: 'Turku', nameSe: "Åbo"},
+    {id: '202', nameFi: 'Kaarina', nameSe: "S:t Karins"},
+    {id: 'lieto', nameFi: 'Lieto', nameSe: ""}
+  ]
+,
+  schools: [
+    {id: 'valkeavuoren-koulu', name: 'Valkeavuoren koulu', city: "202"},
+    {id: 'kuusiston-koulu', name: 'Kuusiston koulu', city: "202"},
+    {id: 'vaha-heikkilan-koulu', name: 'Vähä-Heikkilän koulu', city: "853"},
+  ]
+}
+
+
+
+
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -49,6 +67,9 @@ class App extends React.Component {
     updateInitialState(this)
   }
 
+
+
+
   render() {
     return (
       <main className="App">
@@ -57,6 +78,7 @@ class App extends React.Component {
         >
 
         </Header>
+         <Setup schools={fakeData.schools} cities={fakeData.cities}/>
         <Cards cards={this.state.cards} finishedCards={this.state.finishedCards} actions={actions(this)}>
 
         </Cards>
