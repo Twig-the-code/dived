@@ -1,6 +1,7 @@
 import React from "react"
 import PropTypes from 'prop-types';
 import Select from 'react-select'
+import getAllSchools from "../actions/get-all-schools";
 
 
 const Cities = props => {
@@ -50,12 +51,21 @@ Schools.propTypes = {
   selectedCity: PropTypes.string,
 }
 
+const updateInitialState = async (comp) => {
+  const schools = await getAllSchools()
+  comp.setState(({schools}))
+}
+
 
 class Setup extends React.Component {
 
   constructor(props) {
     super(props)
     this.state = {city: ""}
+
+  }
+  componentDidMount() {
+updateInitialState(this)
   }
 
   onSelectCity(city) {
@@ -65,7 +75,8 @@ class Setup extends React.Component {
   }
 
   render() {
-    const {cities, schools} = this.props
+    const {cities} = this.props
+    const schools = this.state.schools || []
     return <div>
       <Cities cities={cities} onSelect={(city) => this.onSelectCity(city)}/>
       <Schools schools={schools} selectedCity={this.state.city}/>
@@ -75,6 +86,9 @@ class Setup extends React.Component {
 Setup.propTypes = {
   schools: schoolPropType,
   cities: citiesPropType,
+}
+Setup.defaultProps = {
+  schools: [],
 }
 
 export default Setup

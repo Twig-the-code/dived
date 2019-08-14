@@ -29,6 +29,12 @@ enum CardType {
 	digi
 }
 
+type City {
+	id: String!
+	nameFi: String!
+	nameSe: String!
+}
+
 input CreateCardInput {
 	number: Int!
 	type: CardType!
@@ -72,6 +78,15 @@ type DivEdProgressConnection {
 	nextToken: String
 }
 
+input FilterSchool {
+	id: ModelStringFilterInput
+	city: ModelStringFilterInput
+	name: ModelStringFilterInput
+	and: [FilterSchool]
+	or: [FilterSchool]
+	not: FilterSchool
+}
+
 type GroupProgressConnection {
 	items: [CardProgress]
 	nextToken: String
@@ -80,6 +95,10 @@ type GroupProgressConnection {
 type ListOfCards {
 	items: [Card]
 	nextToken: String
+}
+
+type ListOfSchools {
+	items: [School]
 }
 
 input ModelCardTypeFilterInput {
@@ -133,8 +152,15 @@ type Mutation {
 }
 
 type Query {
+	listSchools(filter: FilterSchool, limit: Int, nextToken: String): ListOfSchools
 	listCards(filter: CardFilterInput, limit: Int, nextToken: String): ListOfCards
 	listGroupProgress(groupId: String!, limit: Int, nextToken: String): GroupProgressConnection
+}
+
+type School {
+	id: String!
+	city: String!
+	name: String!
 }
 
 type Subscription {

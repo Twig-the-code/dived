@@ -32,7 +32,8 @@ based on the good example on how to define DynamoDB tables
 | name   | pk  | sk (GSI PK) | data (GSI SK) | additional Attributes |
 |--------|-----|-------------|---------------|-----------------------|
 | Group | groupId* | "GROUP" | geoHash | group details... |
-| School | city | schoolName | "SCHOOL" | geoHash
+| Cities | city number | "CITY" | nameFi | nameSe |
+| School | city | schoolName | "SCHOOL" | geoHash |
 | Groups from school| city#schoolName | 
 | Card | cardId | cardType |  | | 
 

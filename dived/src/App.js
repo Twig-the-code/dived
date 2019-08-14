@@ -8,7 +8,7 @@ import Info from "./components/Info";
 import getAllCards from "./actions/get-all-cards";
 import getAllFinishedCards from "./actions/get-all-finished-cards";
 import markAsFinished from "./actions/mark-card-as-finished";
-
+import getAllSchools from "./actions/get-all-schools";
 
 import './App.css';
 
@@ -45,12 +45,6 @@ const fakeData = {
     {id: '202', nameFi: 'Kaarina', nameSe: "S:t Karins"},
     {id: 'lieto', nameFi: 'Lieto', nameSe: ""}
   ]
-,
-  schools: [
-    {id: 'valkeavuoren-koulu', name: 'Valkeavuoren koulu', city: "202"},
-    {id: 'kuusiston-koulu', name: 'Kuusiston koulu', city: "202"},
-    {id: 'vaha-heikkilan-koulu', name: 'Vähä-Heikkilän koulu', city: "853"},
-  ]
 }
 
 
@@ -78,7 +72,7 @@ class App extends React.Component {
         >
 
         </Header>
-         <Setup schools={fakeData.schools} cities={fakeData.cities}/>
+         <Setup schools={this.state.schools} cities={fakeData.cities}/>
         <Cards cards={this.state.cards} finishedCards={this.state.finishedCards} actions={actions(this)}>
 
         </Cards>

@@ -1,0 +1,10 @@
+#**
+    Return a flat list of results from a Query or Scan operation.
+*#
+#set($result = {"items": [] })
+#foreach( $item in $context.result.items )
+  #set($i = {"id": $item.pk, "city": $item.data, "name": $item.json.name})
+  $util.qr($result.items.add($i))
+#end
+
+$util.toJson($result)

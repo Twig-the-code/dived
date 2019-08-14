@@ -1,6 +1,16 @@
-// eslint-disable
+/* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const listSchools = `query ListSchools($filter: FilterSchool, $limit: Int, $nextToken: String) {
+  listSchools(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      city
+      name
+    }
+  }
+}
+`;
 export const listCards = `query ListCards($filter: CardFilterInput, $limit: Int, $nextToken: String) {
   listCards(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
