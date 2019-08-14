@@ -1,27 +1,121 @@
+
 .card {
-    display: block;
+    display: inline-grid;
+
+    flex-direction: column;
     border: 1px solid black;
+    border-radius: 5px;
+    background: white;
+}
+
+.card--digi {
+    border: 2px solid var(--color-digi);
+}
+.card--culture {
+    border: 2px solid var(--color-culture);
+}
+.card--language {
+    border: 2px solid var(--color-language);
+}
+.card--multilanguage {
+    border: 2px solid var(--color-multilanguage);
+    /*color: var(--color-multilanguage)*/
+}
+
+/*.card--unfinished{*/
+/*    position: relative;*/
+/*}*/
+/*.card--unfinished::before {*/
+/*    content: "";*/
+/*    !*position: absolute; *!*/
+/*    position: absolute;*/
+/*    left: 1em;*/
+/*    top: 1em;*/
+/*    transform: rotate(-7deg);*/
+/*    !*background: currentColor;*!*/
+/*    background: black;*/
+
+/*    !*background: linear-gradient(to left top, transparent 47.7%, currentColor 49.5% );*!*/
+/*}*/
+
+.card__number {
+    font-size: 2em;
+    position: relative;
+}
+
+.card--finished{
+    color: var(--color-white);
+    text-transform: uppercase;
+    position: relative;
+}
+.card--finished .card__status{
+    font-weight: bolder;
+    z-index: 100;
+}
+.card--finished .card__number{
+    position: absolute;
+    /*top: 4px;*/
+    /*right: 10px;*/
+
     border-radius: 100%;
+    width: 1.5em;
+    height: 1.5em;
+    line-height: 1.4em;
+}
+
+.card--finished.card--digi {
+    background: var(--color-digi);
+}
+.card--finished.card--culture {
+    background: var(--color-culture);
+}
+.card--finished.card--language {
+    background: var(--color-language);
+}
+.card--finished.card--multilanguage {
+    background: var(--color-multilanguage);
 }
 
 
-.card--blue.card--finished {
-    background: #61dafb;
+.card--finished.card--digi > .card__number {
+    background: var(--color-digi-ready);
+    border: 4px double var(--color-digi);
 }
-
-.card--yellow.card--finished {
-    background: beige;
+.card--finished.card--culture > .card__number {
+    background: var(--color-culture-ready);
+    border: 4px double var(--color-culture);
 }
-
-.card--pink.card--finished {
-    background: crimson;
+.card--finished.card--language > .card__number {
+    background: var(--color-language-ready);
+    border: 4px double var(--color-language);
 }
-
-.card--green.card--finished {
-    background: aquamarine;
+.card--finished.card--multilanguage > .card__number  {
+    background: var(--color-multilanguage-ready);
+    border: 4px double var(--color-multilanguage);
 }
-
 
 .card--unfinished{
-    background: aliceblue;
+    grid-template-columns: 1fr;
+    grid-template-rows: 5px [status] 1fr [number] 1fr;
+}
+.card--finished {
+    grid-template-columns: 1fr;
+    grid-template-rows: [number] 1fr 5px [status] 1fr;
+}
+.card--unfinished > .card__status{
+    grid-row-start: status;
+}
+
+.card--unfinished > .card__number {
+    grid-row-start: number;
+}
+
+
+
+.card--finished > .card__status{
+    grid-row-start: status;
+    grid-row-end: span 1
+}
+
+.card--finished > .card__number {
 }

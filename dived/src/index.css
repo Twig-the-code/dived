@@ -1,4 +1,14 @@
 body {
+  --black: #231F20;
+  --color-multilanguage: #00BAF1;
+  --color-culture: #FECA0B;
+  --color-language: #87C765;
+  --color-digi: #EC096D;
+  --color-multilanguage-ready: #0099C6;
+  --color-culture-ready: #D0A815;
+  --color-language-ready: #4FA422;
+  --color-digi-ready: #C6075B;
+
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
