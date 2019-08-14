@@ -16,7 +16,6 @@ import config from './aws-exports'
 import Setup from "./components/Setup";
 import { I18n } from 'aws-amplify';
 
-
 Amplify.configure(config)
 I18n.setLanguage('fi');
 
@@ -25,10 +24,16 @@ const cardDict = {
   'fi': {
     'Card finished': "Valmis",
     'Card unfinished': "Kortti",
+    'filter all': "Kaikki",
+    'filter finished': "Valmiit",
+    'filter unfinished': "Kesken",
   },
   'se': {
     'Card finished': "Färdigt",
     'Card unfinished': "Kort",
+    'filter all': "Alla",
+    'filter finished': "Alla",
+    'filter unfinished': "Alla",
   }
 }
 
@@ -103,7 +108,7 @@ const fakeData = {
     {id: 35, number: 35, type: "digi"},
   ],
   finishedCards: [
-    3, 1, 7,8
+    2, 1, 7,8
   ]
 }
 

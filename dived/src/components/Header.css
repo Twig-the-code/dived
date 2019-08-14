@@ -1,0 +1,43 @@
+.page-header{
+    background: var(--background-page-header);
+    padding: 0 1em;
+}
+
+.page-header__info{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+/* Font awesome BARS */
+.page-header__menu{
+    font-size: 2em;
+    align-self: center;
+    vertical-align: center;
+}
+
+@keyframes nav-visible {
+    0% { transform: translateX(300px)}
+    100% { transform: translateX(0px) translateX(0px)}
+}
+
+input.toggle__input { display: none;}
+
+input.toggle__input:checked ~ .page-header__nav {
+    display: block;
+    transition: all 0.1s;
+    animation: nav-visible forwards .4s ease-in 1;
+}
+
+input.toggle__input:not(checked) ~ .page-header__nav {
+    display: none;
+}
+
+.page-header__nav {
+    position: absolute;
+    background: white;
+    text-align: left;
+    right: 0;
+    padding: 2em 3em;
+}

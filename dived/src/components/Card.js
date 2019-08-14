@@ -23,6 +23,7 @@ class ConfirmOnClick extends React.Component{
 
 
 
+
 class Card extends React.Component{
   render() {
     const {card, status } = this.props

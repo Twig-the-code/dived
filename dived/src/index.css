@@ -1,5 +1,9 @@
+:root{
+  font-size: 16px;
+}
+
 body {
-  --black: #231F20;
+  --color-black: #231F20;
   --color-multilanguage: #00BAF1;
   --color-culture: #FECA0B;
   --color-language: #87C765;
@@ -9,12 +13,16 @@ body {
   --color-language-ready: #4FA422;
   --color-digi-ready: #C6075B;
 
+  --background-filter: #4BBEE0;
+  --background-page-header: #1DB1DC;
+  --background-page: #1DB1DC;
+
+
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: "Roboto", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /*background: var(--background-page);*/
 }
 
 code {

@@ -46,11 +46,10 @@
 .card--finished{
     color: var(--color-white);
     text-transform: uppercase;
-    position: relative;
 }
 .card--finished .card__status{
     font-weight: bolder;
-    z-index: 100;
+    /*z-index: 100;*/
 }
 .card--finished .card__number{
     position: absolute;
