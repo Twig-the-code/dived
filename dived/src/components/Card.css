@@ -40,7 +40,6 @@
 
 .card__number {
     font-size: 2em;
-    position: relative;
 }
 
 .card--finished{
@@ -51,16 +50,18 @@
     font-weight: bolder;
     /*z-index: 100;*/
 }
-.card--finished .card__number{
-    position: absolute;
-    /*top: 4px;*/
-    /*right: 10px;*/
+.card__number{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
 
+.card__number > span {
     border-radius: 100%;
     width: 1.5em;
     height: 1.5em;
-    line-height: 1.4em;
 }
+
 
 .card--finished.card--digi {
     background: var(--color-digi);
@@ -75,20 +76,19 @@
     background: var(--color-multilanguage);
 }
 
-
-.card--finished.card--digi > .card__number {
+.card--finished.card--digi .card__number span {
     background: var(--color-digi-ready);
     border: 4px double var(--color-digi);
 }
-.card--finished.card--culture > .card__number {
+.card--finished.card--culture .card__number span {
     background: var(--color-culture-ready);
     border: 4px double var(--color-culture);
 }
-.card--finished.card--language > .card__number {
+.card--finished.card--language .card__number span {
     background: var(--color-language-ready);
     border: 4px double var(--color-language);
 }
-.card--finished.card--multilanguage > .card__number  {
+.card--finished.card--multilanguage .card__number span {
     background: var(--color-multilanguage-ready);
     border: 4px double var(--color-multilanguage);
 }
@@ -116,5 +116,4 @@
     grid-row-end: span 1
 }
 
-.card--finished > .card__number {
-}
+

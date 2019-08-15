@@ -32,7 +32,7 @@ class Card extends React.Component{
       className={`card card--${card.type} card--${status}`}
       onClick={event => this.handleClick(card)}
     >
-      <span className='card__number'>{card.number}</span>
+      <div className="card__number"><span>{card.number}</span></div>
       <span className='card__status'>{I18n.get(`Card ${status}`)}</span>
     </a>
   }
