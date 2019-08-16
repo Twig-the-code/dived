@@ -6,6 +6,7 @@ export default async function () {
   console.log("get all cards!")
   const {done: {data}, error} = await wrapGraphQLOperation(listCards)
 
-  console.log({data})
-  return data.listCards.items;
+  const {items} = data.listCards;
+  const cards = items.sort( (a, b) => a.number > b.number)
+  return cards;
 }

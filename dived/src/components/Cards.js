@@ -55,8 +55,6 @@ class Cards extends React.Component {
                          actions={this.props.actions}
     />;
   }
-
-// doMagicThings :: _ => JSX
 }
 
 Cards.propTypes = {

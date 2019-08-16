@@ -15,14 +15,11 @@ class ConfirmOnClick extends React.Component{
     const p = this.state.confirm ? this.state.confirm : <Card {...this.props}/>
 
     return <div class="confirm">
-      {p}
+      <p>fOOO</p>
+      <Card {...this.props}></Card>
     </div>
   }
 }
-
-
-
-
 
 class Card extends React.Component{
   render() {

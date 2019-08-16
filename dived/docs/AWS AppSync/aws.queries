@@ -1,0 +1,153 @@
+	# Click the orange "Play" button and select the createDivEdProgress
+# mutation to create an object in DynamoDB.
+# If you see an error that starts with "Unable to assume role",
+# wait a moment and try again.
+mutation createGroup {
+  createGroup(input: {
+
+  }) {
+    id, createdAt
+  }
+}
+mutation addProgress {
+  addFinishedCard(input:{
+    cardId: "30dd4498-02d7-485c-bf8c-616eb9d197a8"
+  }) { id }
+}
+
+mutation createCard {
+  batchCreateCard(input: [{
+    type: culture
+    number: 1
+  },{
+    type: multilanguage
+    number: 2
+  },{
+    type: multilanguage
+    number: 3
+  },{
+    type: culture
+    number: 4
+  },{
+    type: language
+    number: 5
+  },{
+    type: multilanguage
+    number: 6
+  },{
+    type: multilanguage
+    number: 7
+  },{
+    type: digi
+    number: 8
+  },{
+    type: language
+    number: 9
+  },{
+    type: culture
+    number: 10
+  },{
+    type: language
+    number: 11
+  },{
+    type: multilanguage
+    number: 12
+  },{
+    type: digi
+    number: 13
+  },{
+    type: language
+    number: 14
+  },{
+    type: culture
+    number: 15
+  },{
+    type: multilanguage
+    number: 16
+  },{
+    type: multilanguage
+    number: 17
+  },{
+    type: culture
+    number: 18
+  },{
+    type: language
+    number: 19
+  },{
+    type: culture
+    number: 20
+  },{
+    type: language
+    number: 21
+  },{
+    type: multilanguage
+    number: 22
+  },{
+    type: digi
+    number: 23
+  },{
+    type: culture
+    number: 24
+  },{
+    type: language
+    number: 25
+  },{
+    type: multilanguage
+    number: 26
+  },{
+    type: language
+    number: 27
+  },{
+    type: language
+    number: 28
+  },{
+    type: digi
+    number: 29
+  },{
+    type: culture
+    number: 30
+  },{
+    type: language
+    number: 31
+  },{
+    type: multilanguage
+    number: 32
+  },{
+    type: culture
+    number: 33
+  },{
+    type: language
+    number: 34
+  },{
+    type: digi
+    number: 35
+  }]) {
+    id, number, type
+  }
+}
+query listSchools {
+  listSchools {
+    items {
+      id, city, name
+    }
+  }
+}
+
+
+query listProgress {
+  listGroupProgress(groupId: "rinkkis1") {
+    items {
+      id
+    }
+  }
+}
+
+
+# After running createDivEdProgress, try running the listDivEdProgresses query.
+query listDivEdProgresses {
+  listCards {
+    items {
+      id, type, number
+    }
+  }
+}
