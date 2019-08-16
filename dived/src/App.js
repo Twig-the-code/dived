@@ -1,98 +1,87 @@
 import React from 'react';
-import Amplify, {Auth} from 'aws-amplify'
-import {withAuthenticator} from 'aws-amplify-react'
+import Amplify, { Auth, I18n } from 'aws-amplify';
+import { withAuthenticator } from 'aws-amplify-react';
 
-import Header from "./components/Header";
-import Cards from "./components/Cards";
-import Info from "./components/Info";
-import getAllCards from "./actions/get-all-cards";
-import getAllFinishedCards from "./actions/get-all-finished-cards";
-import markAsFinished from "./actions/mark-card-as-finished";
-import getAllSchools from "./actions/get-all-schools";
+import Header from './components/Header';
+import Cards from './components/Cards';
+import Info from './components/Info';
+import getAllCards from './actions/get-all-cards';
+import getAllFinishedCards from './actions/get-all-finished-cards';
+import markAsFinished from './actions/mark-card-as-finished';
+import getAllSchools from './actions/get-all-schools';
 
 import './App.css';
 
-import config from './aws-exports'
-import Setup from "./components/Setup";
-import { I18n } from 'aws-amplify';
+import config from './aws-exports';
+import Setup from './components/Setup';
 
-Amplify.configure(config)
+Amplify.configure(config);
 I18n.setLanguage('fi');
 
-
 const cardDict = {
-  'fi': {
-    'Card finished': "Valmis",
-    'Card unfinished': "Kortti",
-    'filter all': "Kaikki",
-    'filter finished': "Valmiit",
-    'filter unfinished': "Kesken",
+  fi: {
+    'Card finished': 'Valmis',
+    'Card unfinished': 'Kortti',
+    'filter all': 'Kaikki',
+    'filter finished': 'Valmiit',
+    'filter unfinished': 'Kesken'
   },
-  'se': {
-    'Card finished': "Färdigt",
-    'Card unfinished': "Kort",
-    'filter all': "Alla",
-    'filter finished': "Alla",
-    'filter unfinished': "Alla",
+  se: {
+    'Card finished': 'Färdigt',
+    'Card unfinished': 'Kort',
+    'filter all': 'Alla',
+    'filter finished': 'Alla',
+    'filter unfinished': 'Alla'
   }
-}
+};
 
 I18n.putVocabularies(cardDict);
 
-
-
-const updateInitialState = async (comp) => {
-  const cards = await getAllCards()
-  comp.setState(state => ({cards}))
-  const finishedCards = await getAllFinishedCards("rinkkis1")
-  comp.setState(state => ({finishedCards}))
-
-}
+const updateInitialState = async comp => {
+  const cards = await getAllCards();
+  comp.setState(state => ({ cards }));
+  const finishedCards = await getAllFinishedCards('rinkkis1');
+  comp.setState(state => ({ finishedCards }));
+};
 
 const markCardAsFinished = comp => async card => {
   // Send data to backend!
-  const data = await markAsFinished(card.id)
-  console.log({card})
+  const data = await markAsFinished(card.id);
+  console.log({ card });
   // update state
-  const {finishedCards} = comp.state
+  const { finishedCards } = comp.state;
   comp.setState(state => ({
     finishedCards: [...finishedCards, card.id]
-  }))
-}
+  }));
+};
 
 const actions = comp => ({
   markCardAsFinished: markCardAsFinished(comp)
-})
-
+});
 
 class App extends React.Component {
   constructor(props) {
-    super(props)
-    this.state = {name: "Oravat", cards: [], finishedCards:[]}
+    super(props);
+    this.state = { name: 'Oravat', cards: [], finishedCards: [] };
   }
 
   componentDidMount() {
-    updateInitialState(this)
+    updateInitialState(this);
   }
 
-
-
-
   render() {
-    const {finishedCards, cards} = this.state;
-    const journey = {total: cards.length, finished: finishedCards.length}
+    const { finishedCards, cards } = this.state;
+    const journey = { total: cards.length, finished: finishedCards.length };
     return (
       <main className="App">
-        <Header name={this.state.name}
-                journey={journey}
-        >
-
-        </Header>
-        {/* <Setup schools={this.state.schools} cities={fakeData.cities}/>*/}
-        <Cards cards={cards} finishedCards={finishedCards} actions={actions(this)}>
-
-        </Cards>
-        <Info/>
+        <Header name={this.state.name} journey={journey} />
+        {/* <Setup schools={this.state.schools} cities={fakeData.cities}/> */}
+        <Cards
+          cards={cards}
+          finishedCards={finishedCards}
+          actions={actions(this)}
+        />
+        <Info />
       </main>
     );
   }
@@ -120,5 +109,5 @@ const signUpConfig = {
   ]
 };
 
-export default withAuthenticator(App, true );
+export default withAuthenticator(App, true);
 // export default withAuthenticator(App, {signUpConfig} );
