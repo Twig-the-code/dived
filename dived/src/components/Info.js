@@ -17,7 +17,8 @@ class AboutThisApp extends React.Component {
           </a>
           .
         </p>
-           </footer>
+      </footer>
+    )
   }
 }
 
