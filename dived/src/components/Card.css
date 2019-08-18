@@ -1,11 +1,9 @@
 
 .card {
     display: inline-grid;
-
     flex-direction: column;
-    border: 1px solid black;
-    border-radius: 5px;
     background: white;
+    border-radius: 5px;
 }
 
 .card--digi {
@@ -19,49 +17,121 @@
 }
 .card--multilanguage {
     border: 2px solid var(--color-multilanguage);
-    /*color: var(--color-multilanguage)*/
 }
 
+/* KORTTIEN KULMIEN VINOVIIVAT */
+.card--unfinished::before {
+    content:"";
+    width: 25px;
+    height: 2px;
+    position: absolute;
+    transform: rotate(-45deg);
+    /* z-index: -1; */
+    top: 3px;
+    left: -8px;
+}
+
+.card--unfinished::after {
+    content:"";
+    width: 25px;
+    height: 2px;
+    position: absolute;
+    transform: rotate(-45deg);
+    bottom: 7px;
+    right: -6px;
+}
+
+.card--unfinished.card--digi::before {
+    background-color: var(--color-digi);
+    box-shadow: -1px 5px var(--color-digi);
+}
+
+.card--unfinished.card--culture::before {
+    background-color: var(--color-culture);
+    box-shadow: -1px 5px var(--color-culture);
+}
+
+.card--unfinished.card--language::before {
+    background-color: var(--color-language);
+    box-shadow: -1px 5px var(--color-language);
+}
+
+.card--unfinished.card--multilanguage::before {
+    background-color: var(--color-multilanguage);
+    box-shadow: -1px 5px var(--color-multilanguage);
+}
+
+.card--unfinished.card--digi::after {
+    background-color: var(--color-digi);
+    box-shadow: -1px 5px var(--color-digi);
+}
+
+.card--unfinished.card--culture::after {
+    background-color: var(--color-culture);
+    box-shadow: -1px 5px var(--color-culture);
+}
+
+.card--unfinished.card--language::after {
+    background-color: var(--color-language);
+    box-shadow: -1px 5px var(--color-language);
+}
+
+.card--unfinished.card--multilanguage::after {
+    background-color: var(--color-multilanguage);
+    box-shadow: -1px 5px var(--color-multilanguage);
+}
+
+.card--unfinished {
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 5px 20px -12px var(--color-black-shade);
+}
+/* END - KORTTIEN KULMIEN VINOVIIVAT */
+
+
+
 /*.card--unfinished{*/
-/*    position: relative;*/
-/*}*/
-/*.card--unfinished::before {*/
-/*    content: "";*/
-/*    !*position: absolute; *!*/
-/*    position: absolute;*/
-/*    left: 1em;*/
-/*    top: 1em;*/
-/*    transform: rotate(-7deg);*/
-/*    !*background: currentColor;*!*/
-/*    background: black;*/
-
-/*    !*background: linear-gradient(to left top, transparent 47.7%, currentColor 49.5% );*!*/
-/*}*/
-
+    /*    position: relative;*/
+    /*}*/
+    /*.card--unfinished::before {*/
+        /*    content: "";*/
+        /*    !*position: absolute; *!*/
+        /*    position: absolute;*/
+        /*    left: 1em;*/
+        /*    top: 1em;*/
+        /*    transform: rotate(-7deg);*/
+        /*    !*background: currentColor;*!*/
+        /*    background: black;*/
+        
+        /*    !*background: linear-gradient(to left top, transparent 47.7%, currentColor 49.5% );*!*/
+        /*}*/
+        
 .card__number {
-    font-size: 2em;
+    font-size: 2.125rem;
+    position: relative;
 }
 
 .card--finished{
     color: var(--color-white);
     text-transform: uppercase;
+    /* box-shadow: 0 5px 10px -12px var(--color-black-shade); */
 }
 .card--finished .card__status{
-    font-weight: bolder;
-    /*z-index: 100;*/
+    font-weight: 600;
+    z-index: 5;
 }
-.card__number{
-    display: flex;
-    justify-content: center;
-    align-content: center;
-}
+.card--finished .card__number{
+    position: absolute;
+    color: var(--color-white-shade);
+    /*top: 4px;*/
+    /*right: 10px;*/
 
-.card__number > span {
     border-radius: 100%;
     width: 1.5em;
     height: 1.5em;
+    line-height: 1.4em;
+    font-weight: 700;
 }
-
 
 .card--finished.card--digi {
     background: var(--color-digi);
@@ -76,23 +146,23 @@
     background: var(--color-multilanguage);
 }
 
-.card--finished.card--digi .card__number span {
-    background: var(--color-digi-ready);
-    border: 4px double var(--color-digi);
-}
-.card--finished.card--culture .card__number span {
-    background: var(--color-culture-ready);
-    border: 4px double var(--color-culture);
-}
-.card--finished.card--language .card__number span {
-    background: var(--color-language-ready);
-    border: 4px double var(--color-language);
-}
-.card--finished.card--multilanguage .card__number span {
-    background: var(--color-multilanguage-ready);
-    border: 4px double var(--color-multilanguage);
-}
 
+.card--finished.card--digi > .card__number {
+    background: var(--color-digi-ready);
+    border: 7px double var(--color-digi);
+}
+.card--finished.card--culture > .card__number {
+    background: var(--color-culture-ready);
+    border: 7px double var(--color-culture);
+}
+.card--finished.card--language > .card__number {
+    background: var(--color-language-ready);
+    border: 7px double var(--color-language);
+}
+.card--finished.card--multilanguage > .card__number  {
+    background: var(--color-multilanguage-ready);
+    border: 7px double var(--color-multilanguage);
+}
 .card--unfinished{
     grid-template-columns: 1fr;
     grid-template-rows: 5px [status] 1fr [number] 1fr;
@@ -115,5 +185,3 @@
     grid-row-start: status;
     grid-row-end: span 1
 }
-
-

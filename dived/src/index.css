@@ -4,21 +4,26 @@
 
 body {
   --color-black: #231F20;
+  --color-black-shade: rgba(35,31,32,0.65);
+  --color-white-shade: rgba(255,255,255,0.6);
   --color-multilanguage: #00BAF1;
   --color-culture: #FECA0B;
   --color-language: #87C765;
   --color-digi: #EC096D;
-  --color-multilanguage-ready: #0099C6;
-  --color-culture-ready: #D0A815;
+  --color-multilanguage-ready: #0098C5;
+  --color-culture-ready: #D0A509;
   --color-language-ready: #4FA422;
   --color-digi-ready: #C6075B;
 
-  --background-filter: #4BBEE0;
-  --background-page-header: #1DB1DC;
-  --background-page: #1DB1DC;
+  --color-primary: #00BAF1;
+  --color-primary-light: #67ECFF;
+  --color-primary-dark: #008ABE;
+  /* --background-filter: #4BBEE0; */
+  /* --background-page: #1DB1DC; */
 
 
   margin: 0;
+  color: #231F20;
   font-family: "Roboto", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
