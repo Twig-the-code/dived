@@ -1,9 +1,9 @@
 
 .card {
     display: inline-grid;
-    flex-direction: column;
     background: white;
     border-radius: 5px;
+    justify-items: center;
 }
 
 .card--digi {
@@ -26,7 +26,6 @@
     height: 2px;
     position: absolute;
     transform: rotate(-45deg);
-    /* z-index: -1; */
     top: 3px;
     left: -8px;
 }
@@ -111,9 +110,10 @@
     position: relative;
 }
 
-.card--finished{
+.card--finished {
     color: var(--color-white);
     text-transform: uppercase;
+    overflow: hidden;
     /* box-shadow: 0 5px 10px -12px var(--color-black-shade); */
 }
 .card--finished .card__status{
@@ -123,13 +123,11 @@
 .card--finished .card__number{
     position: absolute;
     color: var(--color-white-shade);
-    /*top: 4px;*/
-    /*right: 10px;*/
-
     border-radius: 100%;
     width: 1.5em;
     height: 1.5em;
-    line-height: 1.4em;
+    line-height: 1.5em;
+    text-align: center;
     font-weight: 700;
 }
 
@@ -165,11 +163,11 @@
 }
 .card--unfinished{
     grid-template-columns: 1fr;
-    grid-template-rows: 5px [status] 1fr [number] 1fr;
+    grid-template-rows: 15px [status] 1fr [number] 2.1fr;
 }
 .card--finished {
     grid-template-columns: 1fr;
-    grid-template-rows: [number] 1fr 5px [status] 1fr;
+    grid-template-rows: [number] 1.8fr 5px [status] 1fr;
 }
 .card--unfinished > .card__status{
     grid-row-start: status;

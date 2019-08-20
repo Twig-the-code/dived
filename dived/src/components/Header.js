@@ -18,11 +18,9 @@ class Header extends React.Component {
     const { finished, total } = this.props.journey;
     return (
       <header className="page-header">
-        <div className="page-header__info">
           <h2>{this.props.name}</h2>
           <div className="page-header__menu">
             <FontAwesomeIcon icon={faBars} onClick={() => this.handleClick()} />
-          </div>
         </div>
         <input
           type="checkbox"

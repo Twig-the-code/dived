@@ -1,19 +1,15 @@
-.page-header{
+.page-header {
     background: var(--color-primary);
     padding: 0 1em;
-}
-
-.page-header__info {
     display: flex;
     justify-content: space-between;
 }
 
-.page-header__info h2 {
+.page-header h2 {
     font-size: 1.25em;
     font-weight: 500;
     letter-spacing: 0.25px;
 }
-
 
 /* Font awesome BARS */
 .page-header__menu{
