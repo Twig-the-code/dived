@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import Css from './Header.css';
 
 class Header extends React.Component {
@@ -20,7 +20,7 @@ class Header extends React.Component {
       <header className="page-header">
           <h2>{this.props.name}</h2>
           <div className="page-header__menu">
-            <FontAwesomeIcon icon={faBars} onClick={() => this.handleClick()} />
+            <FontAwesomeIcon icon={faEllipsisV} onClick={() => this.handleClick()} />
         </div>
         <input
           type="checkbox"
@@ -28,11 +28,11 @@ class Header extends React.Component {
           checked={this.state.checked ? 'checked' : ''}
           className="toggle__input"
         />
-        <nav className="page-header__nav">
-          <ul>
-            <li>logout</li>
-            <li>svenska</li>
-            <li>filter</li>
+        <nav className="page-header__options">
+          <ul className="header__options__list">
+            <li>Suomi</li>
+            <li>Svenska</li>
+            <li>Kirjaudu ulos</li>
           </ul>
         </nav>
       </header>

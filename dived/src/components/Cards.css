@@ -13,7 +13,7 @@
     font-weight: 500;
     letter-spacing: 1.25px;
     color: var(--color-black-shade);
-    padding: 1em;
+    padding: 1rem;
     text-transform: uppercase;
     border-bottom: 2px solid transparent;
     transition: border-bottom, .5s;
@@ -55,4 +55,6 @@
     grid-column: 1 / 1;
 }
 
-/* Just to make the grid visible */
+footer {
+    padding: 16px;
+}
