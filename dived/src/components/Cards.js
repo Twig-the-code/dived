@@ -4,63 +4,62 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCheckSquare,
-  faSquare,
   faListAlt,
-  faEye
+  faEye,
 } from '@fortawesome/free-regular-svg-icons';
-import Card from './Card';
-import Css from './Cards.css';
+import Card, { CardActions } from './Card';
+import {} from './Cards.css';
 
 const isFinished = (finishedCards, card) => {
   return finishedCards.includes(card.id) ? 'finished' : 'unfinished';
 };
 
-const Filter = props => {
+const Filter = () => {
   return (
     <div className="filter-container">
-      <a role="button" className="filter filter--active">
+      <button type="button" className="filter filter--active">
         <FontAwesomeIcon icon={faEye} />
         <span className="filter__all">{I18n.get('filter all')}</span>
-      </a>
-      <a role="button" className="filter">
+      </button>
+      <button type="button" className="filter">
         <FontAwesomeIcon icon={faListAlt} />
         <span className="filter__unfinished">
           {I18n.get('filter unfinished')}
         </span>
-      </a>
-      <a role="button" className="filter">
+      </button>
+      <button type="button" className="filter">
         <FontAwesomeIcon icon={faCheckSquare} />
         <span className="filter__finished">{I18n.get('filter finished')}</span>
-      </a>
+      </button>
     </div>
   );
 };
 Filter.propTypes = {};
 
 class Cards extends React.Component {
-  render() {
-    return (
-      <div>
-        <Filter />
-        <div className="card-container">
-          {this.createAllCards(this.props.cards)}
-        </div>
-      </div>
-    );
-  }
-
   createAllCards(cards) {
     return cards.map(this.createCard());
   }
 
   createCard() {
+    const { finishedCards, actions } = this.props;
     return card => (
       <Card
         key={card.id}
         card={card}
-        status={isFinished(this.props.finishedCards, card)}
-        actions={this.props.actions}
+        status={isFinished(finishedCards, card)}
+        actions={actions}
       />
+    );
+  }
+
+  render() {
+    const { cards } = this.props;
+    return (
+      <div>
+        <Filter />
+        <div className="card-container">{this.createAllCards(cards)}</div>
+      </div>
     );
   }
 }
@@ -70,13 +69,15 @@ Cards.propTypes = {
     PropTypes.shape({
       id: PropTypes.number,
       type: PropTypes.string,
-      name: PropTypes.string
+      name: PropTypes.string,
     })
-  )
+  ),
+  finishedCards: PropTypes.arrayOf(PropTypes.strings).isRequired,
+  actions: CardActions.isRequired,
 };
 
 Cards.defaultProps = {
-  cards: []
+  cards: [],
 };
 
 export default Cards;

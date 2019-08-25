@@ -2,7 +2,7 @@ export const fakeData = {
   cities: [
     { id: '853', nameFi: 'Turku', nameSe: 'Åbo' },
     { id: '202', nameFi: 'Kaarina', nameSe: 'S:t Karins' },
-    { id: 'lieto', nameFi: 'Lieto', nameSe: '' }
+    { id: 'lieto', nameFi: 'Lieto', nameSe: '' },
   ],
   cards: [
     { id: 1, number: 1, type: 'culture' },
@@ -39,7 +39,7 @@ export const fakeData = {
     { id: 32, number: 32, type: 'multilanguage' },
     { id: 33, number: 33, type: 'culture' },
     { id: 34, number: 34, type: 'language' },
-    { id: 35, number: 35, type: 'digi' }
+    { id: 35, number: 35, type: 'digi' },
   ],
-  finishedCards: [2, 1, 7, 8]
+  finishedCards: [2, 1, 7, 8],
 };

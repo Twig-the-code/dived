@@ -4,15 +4,15 @@ const cardDict = {
     'Card unfinished': 'Kortti',
     'filter all': 'Kaikki',
     'filter finished': 'Valmiit',
-    'filter unfinished': 'Kesken'
+    'filter unfinished': 'Kesken',
   },
   se: {
     'Card finished': 'Färdigt',
     'Card unfinished': 'Kort',
     'filter all': 'Alla',
     'filter finished': 'Alla',
-    'filter unfinished': 'Alla'
-  }
+    'filter unfinished': 'Alla',
+  },
 };
 
 const cards = {
@@ -53,8 +53,8 @@ const cards = {
     'Card 32 title': 'KATSOKAA VIITTOMAKIELISET UUTISET',
     'Card 33 title': 'KOULUJEN KULTTUURIT',
     'Card 34 title': 'SARJAKUVA',
-    'Card 35 title': 'KIELI- JA KULTTUURIPIZZA'
-  }
+    'Card 35 title': 'KIELI- JA KULTTUURIPIZZA',
+  },
 };
 
 export const dictionary = { ...cardDict, ...cards };
