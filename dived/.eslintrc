@@ -15,7 +15,11 @@
     "jest": true
   },
   "rules": {
-    "prettier/prettier": ["error", { "singleQuote": true }],
+    "prettier/prettier": ["error", {
+      "singleQuote": true,
+      "trailingComma": "es5",
+    }],
+    "import/prefer-default-export": false,
     "react/jsx-filename-extension": [1, { "extensions": [".js"] }]
   },
   "settings": {
@@ -25,4 +29,5 @@
     }
   },
   "parser": "@typescript-eslint/parser"
+<<<<<<< HEAD
 }

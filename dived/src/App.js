@@ -8,7 +8,9 @@ import Info from './components/Info';
 import getAllCards from './actions/get-all-cards';
 import getAllFinishedCards from './actions/get-all-finished-cards';
 import markAsFinished from './actions/mark-card-as-finished';
-import getAllSchools from './actions/get-all-schools';
+import getAllSchowols from './actions/get-all-schools';
+
+import { fakeData } from './helpers/fakeData';
 
 import './App.css';
 
@@ -24,23 +26,24 @@ const cardDict = {
     'Card unfinished': 'Kortti',
     'filter all': 'Kaikki',
     'filter finished': 'Valmiit',
-    'filter unfinished': 'Kesken'
+    'filter unfinished': 'Kesken',
   },
   se: {
     'Card finished': 'Färdigt',
     'Card unfinished': 'Kort',
     'filter all': 'Alla',
     'filter finished': 'Alla',
-    'filter unfinished': 'Alla'
-  }
+    'filter unfinished': 'Alla',
+  },
 };
 
 I18n.putVocabularies(cardDict);
 
 const updateInitialState = async comp => {
-  const cards = await getAllCards();
+  const { username } = comp.props.authData;
+  const { done: cards } = await getAllCards();
   comp.setState(state => ({ cards }));
-  const finishedCards = await getAllFinishedCards('rinkkis1');
+  const { done: finishedCards } = await getAllFinishedCards(username);
   comp.setState(state => ({ finishedCards }));
 };
 
@@ -51,12 +54,12 @@ const markCardAsFinished = comp => async card => {
   // update state
   const { finishedCards } = comp.state;
   comp.setState(state => ({
-    finishedCards: [...finishedCards, card.id]
+    finishedCards: [...finishedCards, card.id],
   }));
 };
 
 const actions = comp => ({
-  markCardAsFinished: markCardAsFinished(comp)
+  markCardAsFinished: markCardAsFinished(comp),
 });
 
 class App extends React.Component {
@@ -70,12 +73,12 @@ class App extends React.Component {
   }
 
   render() {
-    const { finishedCards, cards } = this.state;
+    const { finishedCards, cards, name, schools } = this.state;
     const journey = { total: cards.length, finished: finishedCards.length };
     return (
       <main className="App">
-        <Header name={this.state.name} journey={journey} />
-        {/* <Setup schools={this.state.schools} cities={fakeData.cities}/> */}
+        <Header name={name} journey={journey} />
+        <Setup schools={schools} cities={fakeData.cities} />
         <Cards
           cards={cards}
           finishedCards={finishedCards}
@@ -96,7 +99,7 @@ const signUpConfig = {
       required: true,
       placeholder: 'Käyttäjänimi',
       type: 'string',
-      displayOrder: 1
+      displayOrder: 1,
     },
     {
       label: 'Salasana',
@@ -104,9 +107,9 @@ const signUpConfig = {
       required: true,
       placeholder: 'Salasana',
       type: 'password',
-      displayOrder: 2
-    }
-  ]
+      displayOrder: 2,
+    },
+  ],
 };
 
 export default withAuthenticator(App, true);

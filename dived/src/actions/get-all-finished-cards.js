@@ -1,13 +1,14 @@
-import { API, graphqlOperation } from 'aws-amplify';
 import { listGroupProgress } from '../graphql/queries';
+import { wrapGraphQLOperation } from './wrap-promise';
 
 export default async function(groupId) {
-  const { data } = await API.graphql(
-    graphqlOperation(listGroupProgress, { groupId })
-  );
-  console.log('blog successfully fetched', data);
+  const {
+    done: { data },
+    error,
+  } = await wrapGraphQLOperation(listGroupProgress, { groupId });
 
-  const getCardId = data => data.id;
-
-  return data.listGroupProgress.items.map(getCardId);
+  if (data) {
+    return { done: data.listGroupProgress.items.map(card => card.id) };
+  }
+  return { error };
 }
