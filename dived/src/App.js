@@ -1,5 +1,5 @@
 import React from 'react';
-import Amplify, { I18n } from 'aws-amplify';
+import Amplify, { Auth, I18n } from 'aws-amplify';
 import { withAuthenticator } from 'aws-amplify-react';
 
 import Header from './components/Header';
@@ -8,7 +8,7 @@ import Info from './components/Info';
 import getAllCards from './actions/get-all-cards';
 import getAllFinishedCards from './actions/get-all-finished-cards';
 import markAsFinished from './actions/mark-card-as-finished';
-import getAllSchools from './actions/get-all-schools';
+import getAllSchowols from './actions/get-all-schools';
 
 import { fakeData } from './helpers/fakeData';
 
@@ -40,9 +40,10 @@ const cardDict = {
 I18n.putVocabularies(cardDict);
 
 const updateInitialState = async comp => {
-  const cards = await getAllCards();
+  const { username } = comp.props.authData;
+  const { done: cards } = await getAllCards();
   comp.setState(state => ({ cards }));
-  const finishedCards = await getAllFinishedCards('rinkkis1');
+  const { done: finishedCards } = await getAllFinishedCards(username);
   comp.setState(state => ({ finishedCards }));
 };
 
