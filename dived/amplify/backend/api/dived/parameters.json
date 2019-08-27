@@ -1,6 +1,7 @@
 {
     "AppSyncApiName": "dived",
     "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": "false",
     "AuthCognitoUserPoolId": {
         "Fn::GetAtt": [
             "authdived50b637c3",

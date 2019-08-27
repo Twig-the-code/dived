@@ -1,0 +1,61 @@
+## No Static Group Authorization Rules **
+
+
+## No Dynamic Group Authorization Rules **
+
+
+## [Start] Owner Authorization Checks **
+#set( $isOwnerAuthorized = false )
+## Authorization rule: { allow: owner, ownerField: "pk", identityField: "cognito:username" } **
+
+#set( $allowedOwners0 = $util.defaultIfNull($ctx.args.input.owner, null) )
+#set( $identityValue = $util.defaultIfNull($ctx.identity.claims.get("username"), $util.defaultIfNull($ctx.identity.claims.get("cognito:username"), "___xamznone____")) )
+
+#if( $util.isList($allowedOwners0) )
+  #foreach( $allowedOwner in $allowedOwners0 )
+    #if( $allowedOwner == $identityValue )
+      #set( $isOwnerAuthorized = true )
+    #end
+  #end
+#end
+#if( $util.isString($allowedOwners0) )
+  #if( $allowedOwners0 == $identityValue )
+    #set( $isOwnerAuthorized = true )
+  #end
+#end
+
+#if( $util.isNull($allowedOwners0) && (! $ctx.args.input.containsKey("owner")) )
+## $util.qr($ctx.args.input.put("owner", $identityValue))
+  #set( $isOwnerAuthorized = true )
+#end
+## [End] Owner Authorization Checks **
+
+
+## [Start] Throw if unauthorized **
+#if( !($isStaticGroupAuthorized == true || $isDynamicGroupAuthorized == true || $isOwnerAuthorized == true) )
+  $util.unauthorized()
+#end
+## [End] Throw if unauthorized **
+
+## [Start] Prepare DynamoDB PutItem Request. **
+{
+  "version": "2017-02-28",
+  "operation": "PutItem",
+  "key": {
+    "pk": $util.dynamodb.toDynamoDBJson($identityValue),
+    "sk": $util.dynamodb.toDynamoDBJson("$ctx.args.input.cardId"),
+  },
+  "attributeValues": {
+    "pk": $util.dynamodb.toDynamoDBJson($identityValue),
+    "sk": $util.dynamodb.toDynamoDBJson("$ctx.args.input.cardId"),
+    "createdAt": $util.dynamodb.toDynamoDBJson($util.time.nowISO8601())
+  },
+  "condition": {
+    "expression": "attribute_not_exists(#pk) and attribute_not_exists(#sk)",
+    "expressionNames": {
+      "#pk": "pk",
+      "#sk": "sk"
+    }
+  }
+}
+## [End] Prepare DynamoDB PutItem Request. **

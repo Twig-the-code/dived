@@ -1,74 +1,58 @@
-enum CardType {
-    culture
-    language
-    multilanguage
-    digi
-}
-
-type Card
-@model
-@auth(
-    rules: [
-        {allow: groups, groups: ["admins"], mutations: [create, update, delete], queries: null},
-        {allow: groups, groups: ["admins","teams"], mutations: null, queries: [get, list]}
-    ]) {
+type City @model {
     id: ID!
+    nameFi: String!
+    nameSe: String!
     number: Int!
-    type: CardType!
-    description: String
-}
-
-input CardTypeFilterInput {
-    eq: CardType
-    ne: CardType
-}
-
-input FilterAllCardsInput {
-    type: CardTypeFilterInput
-    and: [FilterAllCardsInput]
-    or: [FilterAllCardsInput]
-    not: FilterAllCardsInput
-}
-
-type AllCardsResponse {
-    items: [Card]
-}
-
-type Query {
-    scanAllCards: AllCardsResponse
-}
-
-
-type Progress
-@model
-@auth(
-    rules: [
-        {allow: owner}
-    ]
-){
-    id: ID!
-    card: Card! @connection
-}
-
-
-type Location {
-    lat: Float
-    lon: Float
+    schools: [School]! @connection(name: "Schools")
 }
 
 type School
+@key(fields: ["slug"])
+@model {
+    slug: String!
+    city: City! @connection(name: "Schools")
+    name: String!
+    language: Int!
+}
+
+input CreateGroupInput {
+    id: String!
+    schoolId: ID!
+}
+
+type Group
+@key(fields: ["pk", "sk"])
 @model
 @auth(
     rules: [
-        {allow: groups, groups: ["admins"]}
-        {allow: groups, groups: ["teams"], mutations: null, queries: [get, list]}
+        {ownerField: "pk", allow: owner}
     ]
-)
-@key(fields: ["id", "city", "name"])
-@key(name: "ByCity", fields: ["city"], queryField: "schoolByCity")
-{
-    id: ID!
-    name: String!
-    city: String!
-    location: Location
+){
+    pk: String!
+    sk: String!
+}
+
+type GroupDetails {
+    id: String!
+    school: School!
+    progress: [CardProgress]!
+}
+
+input AddFinishedCardInput {
+    cardId: Int!
+}
+type Mutation {
+    addFinishedCard(input: AddFinishedCardInput!): CardProgress
+}
+
+type GroupProgressConnection {
+    items: [CardProgress]
+    nextToken: String
+}
+type CardProgress {
+    cardId: Int!
+}
+
+type Query {
+    listGroupProgress(groupId: String!, limit: Int, nextToken: String): GroupProgressConnection
 }

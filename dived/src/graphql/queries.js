@@ -1,31 +1,119 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const listSchools = `query ListSchools($filter: FilterSchool, $limit: Int, $nextToken: String) {
-  listSchools(filter: $filter, limit: $limit, nextToken: $nextToken) {
+export const listGroupProgress = `query ListGroupProgress($groupId: String!, $limit: Int, $nextToken: String) {
+  listGroupProgress(groupId: $groupId, limit: $limit, nextToken: $nextToken) {
     items {
-      id
-      city
-      name
-    }
-  }
-}
-`;
-export const listCards = `query ListCards($filter: CardFilterInput, $limit: Int, $nextToken: String) {
-  listCards(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      number
-      type
+      cardId
     }
     nextToken
   }
 }
 `;
-export const listGroupProgress = `query ListGroupProgress($groupId: String!, $limit: Int, $nextToken: String) {
-  listGroupProgress(groupId: $groupId, limit: $limit, nextToken: $nextToken) {
+export const getCity = `query GetCity($id: ID!) {
+  getCity(id: $id) {
+    id
+    nameFi
+    nameSe
+    number
+    schools {
+      items {
+        slug
+        name
+        language
+      }
+      nextToken
+    }
+  }
+}
+`;
+export const listCitys = `query ListCitys(
+  $filter: ModelCityFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listCitys(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
+      nameFi
+      nameSe
+      number
+      schools {
+        nextToken
+      }
+    }
+    nextToken
+  }
+}
+`;
+export const getSchool = `query GetSchool($slug: String!) {
+  getSchool(slug: $slug) {
+    slug
+    city {
+      id
+      nameFi
+      nameSe
+      number
+      schools {
+        nextToken
+      }
+    }
+    name
+    language
+  }
+}
+`;
+export const listSchools = `query ListSchools(
+  $slug: String
+  $filter: ModelSchoolFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listSchools(
+    slug: $slug
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      slug
+      city {
+        id
+        nameFi
+        nameSe
+        number
+      }
+      name
+      language
+    }
+    nextToken
+  }
+}
+`;
+export const getGroup = `query GetGroup($pk: String!, $sk: String!) {
+  getGroup(pk: $pk, sk: $sk) {
+    pk
+    sk
+  }
+}
+`;
+export const listGroups = `query ListGroups(
+  $pk: String
+  $sk: ModelStringKeyConditionInput
+  $filter: ModelGroupFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listGroups(
+    pk: $pk
+    sk: $sk
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      pk
+      sk
     }
     nextToken
   }
