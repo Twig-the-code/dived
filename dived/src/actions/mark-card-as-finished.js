@@ -6,6 +6,8 @@ export default async function(cardId) {
     input: { cardId },
   });
 
+  console.log({ done, error })
+
   if (done) {
     return { done: done.data.addFinishedCard.items };
   }

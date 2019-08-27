@@ -8,7 +8,7 @@ export default async function(groupId) {
   } = await wrapGraphQLOperation(listGroupProgress, { groupId });
 
   if (data) {
-    return { done: data.listGroupProgress.items.map(card => card.id) };
+    return { done: data.listGroupProgress.items.map(card => card.cardId) };
   }
   return { error };
 }

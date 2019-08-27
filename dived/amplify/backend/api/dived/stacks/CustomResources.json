@@ -67,6 +67,43 @@
 					]
 				}
 			}
+		},
+		"ListGroupProgressResolver": {
+			"Type": "AWS::AppSync::Resolver",
+			"Properties": {
+				"ApiId": {
+					"Ref": "AppSyncApiId"
+				},
+				"DataSourceName": "GroupTable",
+				"TypeName": "Mutation",
+				"FieldName": "listGroupProgress",
+				"RequestMappingTemplateS3Location": {
+					"Fn::Sub": [
+						"s3://${S3DeploymentBucket}/${S3DeploymentRootKey}/resolvers/Query.listGroupProgress.req.vtl",
+						{
+							"S3DeploymentBucket": {
+								"Ref": "S3DeploymentBucket"
+							},
+							"S3DeploymentRootKey": {
+								"Ref": "S3DeploymentRootKey"
+							}
+						}
+					]
+				},
+				"ResponseMappingTemplateS3Location": {
+					"Fn::Sub": [
+						"s3://${S3DeploymentBucket}/${S3DeploymentRootKey}/resolvers/Query.listGroupProgress.res.vtl",
+						{
+							"S3DeploymentBucket": {
+								"Ref": "S3DeploymentBucket"
+							},
+							"S3DeploymentRootKey": {
+								"Ref": "S3DeploymentRootKey"
+							}
+						}
+					]
+				}
+			}
 		}
 	},
 	"Conditions": {
