@@ -5,8 +5,8 @@ import './Card.css';
 
 class Card extends React.Component {
   handleClick(card) {
-    const { actions } = this.props;
-    actions.markCardAsFinished(card);
+    const { action } = this.props;
+    action(card);
   }
 
   render() {
@@ -37,7 +37,7 @@ Card.propTypes = {
     name: PropTypes.string,
     number: PropTypes.number,
   }).isRequired,
-  actions: CardActions.isRequired,
+  action: PropTypes.func.isRequired,
   status: PropTypes.bool,
 };
 

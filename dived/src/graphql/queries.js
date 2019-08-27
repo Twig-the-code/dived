@@ -1,8 +1,8 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const listGroupProgress = `query ListGroupProgress($groupId: String!, $limit: Int, $nextToken: String) {
-  listGroupProgress(groupId: $groupId, limit: $limit, nextToken: $nextToken) {
+export const listProgress = `query ListProgress($groupId: String!, $limit: Int, $nextToken: String) {
+  listProgress(groupId: $groupId, limit: $limit, nextToken: $nextToken) {
     items {
       cardId
     }

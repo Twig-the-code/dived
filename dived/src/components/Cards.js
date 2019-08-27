@@ -1,34 +1,37 @@
-import { I18n } from 'aws-amplify';
+import {I18n} from 'aws-amplify';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {
   faCheckSquare,
   faListAlt,
   faEye,
 } from '@fortawesome/free-regular-svg-icons';
-import Card, { CardActions } from './Card';
+import Card, {CardActions} from './Card';
 import {} from './Cards.css';
 
 const isFinished = (finishedCards, card) => {
-  return finishedCards.includes(card.id) ? 'finished' : 'unfinished';
+  return finishedCards.includes(card.id);
+};
+const getFinished = (finishedCards, card) => {
+  return isFinished(finishedCards, card) ? 'finished' : 'unfinished';
 };
 
 const Filter = () => {
   return (
     <div className="filter-container">
       <button type="button" className="filter filter--active">
-        <FontAwesomeIcon icon={faEye} />
+        <FontAwesomeIcon icon={faEye}/>
         <span className="filter__all">{I18n.get('filter all')}</span>
       </button>
       <button type="button" className="filter">
-        <FontAwesomeIcon icon={faListAlt} />
+        <FontAwesomeIcon icon={faListAlt}/>
         <span className="filter__unfinished">
           {I18n.get('filter unfinished')}
         </span>
       </button>
       <button type="button" className="filter">
-        <FontAwesomeIcon icon={faCheckSquare} />
+        <FontAwesomeIcon icon={faCheckSquare}/>
         <span className="filter__finished">{I18n.get('filter finished')}</span>
       </button>
     </div>
@@ -42,22 +45,27 @@ class Cards extends React.Component {
   }
 
   createCard() {
-    const { finishedCards, actions } = this.props;
-    return card => (
-      <Card
-        key={card.id}
-        card={card}
-        status={isFinished(finishedCards, card)}
-        actions={actions}
-      />
-    );
+    const {finishedCards, actions} = this.props;
+    return card => {
+      const action = isFinished(finishedCards, card)
+        ? actions.markCardAsOpen
+        : actions.markCardAsFinished;
+      return (
+        <Card
+          key={card.id}
+          card={card}
+          status={getFinished(finishedCards, card)}
+          action={action}
+        />
+      );
+    };
   }
 
   render() {
-    const { cards } = this.props;
+    const {cards} = this.props;
     return (
       <div>
-        <Filter />
+        <Filter/>
         <div className="card-container">{this.createAllCards(cards)}</div>
       </div>
     );

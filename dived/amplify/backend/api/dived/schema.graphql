@@ -38,21 +38,23 @@ type GroupDetails {
     progress: [CardProgress]!
 }
 
-input AddFinishedCardInput {
+input FinishedCardInput {
     cardId: Int!
 }
 type Mutation {
-    addFinishedCard(input: AddFinishedCardInput!): CardProgress
+    addFinishedCard(input: FinishedCardInput!): CardProgress
+    removeFinishedCard(input: FinishedCardInput!): CardProgress
 }
 
-type GroupProgressConnection {
-    items: [CardProgress]
-    nextToken: String
-}
 type CardProgress {
     cardId: Int!
 }
 
+type ProgressConnection {
+    items: [CardProgress]
+    nextToken: String
+}
+
 type Query {
-    listGroupProgress(groupId: String!, limit: Int, nextToken: String): GroupProgressConnection
+    listProgress(groupId: String!, limit: Int, nextToken: String): ProgressConnection
 }
