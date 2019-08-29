@@ -11,6 +11,7 @@ import markAsFinished from './actions/mark-card-as-finished';
 import markAsOpen from './actions/mark-card-as-open';
 import getAllSchowols from './actions/get-all-schools';
 
+import {dictionary} from './i18n/dict'
 import { fakeData } from './helpers/fakeData';
 
 import './App.css';
@@ -38,7 +39,7 @@ const cardDict = {
   },
 };
 
-I18n.putVocabularies(cardDict);
+I18n.putVocabularies(dictionary);
 
 const updateInitialState = async comp => {
   const { username } = comp.props.authData;

@@ -7,7 +7,7 @@ import {
   faListAlt,
   faEye,
 } from '@fortawesome/free-regular-svg-icons';
-import Card, { CardActions } from './Card';
+import Card, { CardActions, ConfirmCard, ConfirmRemovalOfProgressCard } from './Card';
 import {} from './Cards.css';
 
 const isFinished = (finishedCards, card) => {
@@ -91,22 +91,32 @@ class Cards extends React.Component {
   createAllCards(cards) {
     const { filter } = this.state;
     const { finishedCards } = this.props;
-    const filterFunc = FILTER_FUNCS[filter]
+    const filterFunc = FILTER_FUNCS[filter];
     return cards.filter(filterFunc(finishedCards)).map(this.createCard());
+  }
+
+  wrap(func) {
+    const { onClick } = this.props;
+    return card => {
+      onClick(card);
+      func(card);
+    };
   }
 
   createCard() {
     const { finishedCards, actions } = this.props;
     return card => {
-      const action = isFinished(finishedCards, card)
-        ? actions.markCardAsOpen
-        : actions.markCardAsFinished;
+      const action = this.wrap(
+        isFinished(finishedCards, card)
+          ? actions.markCardAsOpen
+          : actions.markCardAsFinished
+      );
       return (
         <Card
           key={card.id}
           card={card}
           status={getFinished(finishedCards, card)}
-          action={action}
+          action={this.wrap(() => {})}
         />
       );
     };
@@ -137,11 +147,64 @@ Cards.propTypes = {
     })
   ),
   finishedCards: PropTypes.arrayOf(PropTypes.strings).isRequired,
+  onClick: PropTypes.func,
   actions: CardActions.isRequired,
 };
 
 Cards.defaultProps = {
   cards: [],
+  onClick: () => {},
 };
 
-export default Cards;
+const Confirm = props => {
+  return <p>CONfIRM CARD</p>;
+};
+
+class ConfirmableCard extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { requiresConfirmation: false };
+  }
+
+  toggleConfirmation(card) {
+    const { requiresConfirmation } = this.state;
+    console.log({ requiresConfirmation });
+    if (!requiresConfirmation) {
+      this.setState({ requiresConfirmation: card });
+    } else {
+      this.setState({ requiresConfirmation: false });
+    }
+  }
+
+  ConfirmOrRemove = (finishedCards, card) => {
+    const { actions } = this.props;
+    const { requiresConfirmation } = this.state;
+
+    return isFinished(finishedCards, card) ? (
+      <ConfirmRemovalOfProgressCard
+        card={requiresConfirmation}
+        onClick={card => this.toggleConfirmation(card)}
+        onRemoval={card => actions.markCardAsOpen(card)}
+      />
+    ) : (
+      <ConfirmCard
+        card={requiresConfirmation}
+        onClick={card => this.toggleConfirmation(card)}
+        onConfirm={card => actions.markCardAsFinished(card)}
+      />
+    );
+  };
+
+  render() {
+    const { actions, finishedCards } = this.props;
+    const { requiresConfirmation } = this.state;
+    const comp = requiresConfirmation ? (
+      this.ConfirmOrRemove(finishedCards, requiresConfirmation)
+    ) : (
+      <Cards onClick={card => this.toggleConfirmation(card)} {...this.props} />
+    );
+    return comp;
+  }
+}
+
+export default ConfirmableCard;

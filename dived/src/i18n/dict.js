@@ -5,6 +5,8 @@ const cardDict = {
     'filter all': 'Kaikki',
     'filter finished': 'Valmiit',
     'filter unfinished': 'Kesken',
+    'Confirm card intro': 'Onneksi olkoon. Olet saanut tehtyä kortin.',
+    'Confirm card tip': 'Varmista vielä nappuloilla',
   },
   se: {
     'Card finished': 'Färdigt',
@@ -12,6 +14,14 @@ const cardDict = {
     'filter all': 'Alla',
     'filter finished': 'Alla',
     'filter unfinished': 'Alla',
+  },
+};
+
+const buttons = {
+  fi: {
+    cancel: 'Peruuta',
+    confirm: 'Vahvista kortti tehdyksi',
+    remove: 'Ups, en ollutkaan vielä tehnyt tätä',
   },
 };
 
@@ -57,4 +67,6 @@ const cards = {
   },
 };
 
-export const dictionary = { ...cardDict, ...cards };
+const fi = { ...cardDict.fi, ...cards.fi, ...buttons.fi };
+const se = { ...cardDict.se, ...cards.se };
+export const dictionary = { fi, se };
