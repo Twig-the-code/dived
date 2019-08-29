@@ -1,3 +1,19 @@
+.confirm {
+    display: grid;
+    grid-template-rows: 1fr auto 1fr;
+    grid-template-areas: "left confirm right";
+}
+
+.confirm__card {
+    grid-area: confirm;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.confirm__buttons {
+    display: flex;
+}
 
 .card {
     display: inline-grid;
@@ -104,7 +120,22 @@
         
 .card__number {
     font-size: 2.125rem;
-    position: relative;
+    line-height: 1.45em;
+
+    /*position: relative;*/
+}
+
+.card__number{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+
+}
+
+.card__number > span {
+    border-radius: 100%;
+    width: 1.5em;
+    height: 1.5em;
 }
 
 .card--finished {
@@ -118,13 +149,13 @@
     z-index: 5;
 }
 .card--finished .card__number{
-    position: absolute;
+    /*position: absolute;*/
     color: var(--color-white-shade);
     border-radius: 100%;
-    width: 1.5em;
-    height: 1.5em;
-    line-height: 1.5em;
-    text-align: center;
+    /*width: 1.5em;*/
+    /*height: 1.5em;*/
+    /*line-height: 1.5em;*/
+    /*text-align: center;*/
     font-weight: 700;
 }
 
@@ -142,19 +173,19 @@
 }
 
 
-.card--finished.card--digi > .card__number {
+.card--finished.card--digi .card__number span {
     background: var(--color-digi-ready);
     border: 7px double var(--color-digi);
 }
-.card--finished.card--culture > .card__number {
+.card--finished.card--culture .card__number span{
     background: var(--color-culture-ready);
     border: 7px double var(--color-culture);
 }
-.card--finished.card--language > .card__number {
+.card--finished.card--language .card__number span {
     background: var(--color-language-ready);
     border: 7px double var(--color-language);
 }
-.card--finished.card--multilanguage > .card__number  {
+.card--finished.card--multilanguage .card__number span {
     background: var(--color-multilanguage-ready);
     border: 7px double var(--color-multilanguage);
 }
