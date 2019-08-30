@@ -1,0 +1,125 @@
+@import "card/colors";
+@import "card/helpers";
+
+.card {
+  display: inline-grid;
+  background: white;
+  border-radius: 5px;
+  justify-items: center;
+  /* KORTTIEN KULMIEN VINOVIIVAT */
+  &--unfinished {
+    &::before{
+      content:"";
+      width: 25px;
+      height: 2px;
+      position: absolute;
+      transform: rotate(-45deg);
+      top: 3px;
+      left: -8px;
+    }
+
+    &::after {
+      content:"";
+      width: 25px;
+      height: 2px;
+      position: absolute;
+      transform: rotate(-45deg);
+      bottom: 7px;
+      right: -6px;
+    }
+  }
+  &--digi {
+    @include border($color-digi);
+    @include addStripes($color-digi);
+    @include addBackground($color-digi, $color-digi-ready);
+  }
+  &--culture {
+    @include border($color-culture);
+    @include addStripes($color-culture);
+    @include addBackground($color-culture,$color-culture-ready);
+  }
+  &--language {
+    @include border($color-language);
+    @include addStripes($color-language);
+    @include addBackground($color-language, $color-language-ready);
+  }
+  &--multilanguage {
+    @include border($color-multilanguage);
+    @include addStripes($color-multilanguage);
+    @include addBackground($color-multilanguage, $color-multilanguage-ready);
+  }
+  /* END - KORTTIEN KULMIEN VINOVIIVAT */
+
+  &--unfinished {
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 5px 20px -12px var(--color-black-shade);
+  }
+
+  &--finished{
+    color: $color-white;
+    text-transform: uppercase;
+    overflow: hidden;
+
+    & .card__status {
+      font-weight: 600;
+      z-index: 5;
+    }
+
+    & .card__number{
+      color: $color-white-shade;
+      border-radius: 100%;
+      font-weight: 700;
+    }
+  }
+}
+
+
+.card--unfinished{
+  grid-template-columns: 1fr;
+  grid-template-rows: 15px [status] 1fr [number] 2.1fr;
+}
+.card--finished {
+  grid-template-columns: 1fr;
+  grid-template-rows: [number] 1.8fr 5px [status] 1fr;
+}
+.card--unfinished > .card__status{
+  grid-row-start: status;
+}
+
+.card--unfinished > .card__number {
+  grid-row-start: number;
+}
+
+.card--finished > .card__status{
+  grid-row-start: status;
+  grid-row-end: span 1
+}
+
+/*.card--unfinished::before {*/
+/*    content: "";*/
+/*    !*position: absolute; *!*/
+/*    position: absolute;*/
+/*    left: 1em;*/
+/*    top: 1em;*/
+/*    transform: rotate(-7deg);*/
+/*    !*background: currentColor;*!*/
+/*    background: black;*/
+
+/*    !*background: linear-gradient(to left top, transparent 47.7%, currentColor 49.5% );*!*/
+/*}*/
+
+.card__number {
+  @include centerDiv(){
+    font-size: 2.125rem;
+    line-height: 1.45em;
+  }
+
+  & > span {
+    border-radius: 100%;
+    width: 1.5em;
+    height: 1.5em;
+  }
+
+
+}

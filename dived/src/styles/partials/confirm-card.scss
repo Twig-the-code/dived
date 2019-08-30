@@ -1,0 +1,16 @@
+.confirm {
+  display: grid;
+  grid-template-rows: 1fr auto 1fr;
+  grid-template-areas: "left confirm right";
+}
+
+.confirm__card {
+  grid-area: confirm;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.confirm__buttons {
+  display: flex;
+}

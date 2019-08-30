@@ -1,0 +1,26 @@
+@mixin border($color) {
+  border: 2px solid $color;
+}
+
+@mixin addStripes($color) {
+  &.card--unfinished::before {
+    background-color: $color;
+    box-shadow: -1px 5px $color;
+  }
+  &.card--unfinished::after {
+    background-color: $color;
+    box-shadow: -1px 5px $color;
+  }
+}
+
+@mixin addBackground($color, $color-ready) {
+  &.card--finished {
+    background: $color;
+
+    & .card__number span {
+      background: $color-ready;
+      border: 7px double $color;
+
+    }
+  }
+}
