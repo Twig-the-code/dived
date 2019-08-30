@@ -31,7 +31,7 @@
   &--digi {
     @include border($color-digi);
     @include addStripes($color-digi);
-    @include addBackground($color-digi, $color-digi-ready);
+    @include addBackground($color-digi, $color-digi);
   }
   &--culture {
     @include border($color-culture);
@@ -75,6 +75,22 @@
 }
 
 
+.card--finished.card--digi .card__number span {
+  background: var(--color-digi-ready);
+  border: 7px double var(--color-digi);
+}
+.card--finished.card--culture .card__number span{
+  background: var(--color-culture-ready);
+  border: 7px double var(--color-culture);
+}
+.card--finished.card--language .card__number span {
+  background: var(--color-language-ready);
+  border: 7px double var(--color-language);
+}
+.card--finished.card--multilanguage .card__number span {
+  background: var(--color-multilanguage-ready);
+  border: 7px double var(--color-multilanguage);
+}
 .card--unfinished{
   grid-template-columns: 1fr;
   grid-template-rows: 15px [status] 1fr [number] 2.1fr;
@@ -91,10 +107,14 @@
   grid-row-start: number;
 }
 
+
+
 .card--finished > .card__status{
   grid-row-start: status;
   grid-row-end: span 1
 }
+
+
 
 /*.card--unfinished::before {*/
 /*    content: "";*/
