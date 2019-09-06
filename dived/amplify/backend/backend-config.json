@@ -1,6 +1,6 @@
 {
 	"auth": {
-		"divede491ba7ae491ba7a": {
+		"dived2500571325005713": {
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation",
 			"dependsOn": []

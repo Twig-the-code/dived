@@ -128,7 +128,7 @@ class MyCustomComfirmSignUp extends ConfirmSignUp {
     super(props);
   }
   render(){
-    super.changeState("signIn")
+    super.changeState("signedIn")
     return (<p>HERE</p>)
   }
 }
