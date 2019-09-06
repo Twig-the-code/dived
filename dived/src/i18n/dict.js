@@ -25,6 +25,16 @@ const buttons = {
   },
 };
 
+const signup = {
+  fi: {
+    'signup info': 'Kirjaudu DivED käyttäjäksi alla.',
+    username: 'Käyttäjänimi',
+    password: 'Salasana',
+    'password-confirm': 'Salasana uudelleen',
+    'signup button': 'Kirjaudu käyttäjäksi',
+  },
+};
+
 const cards = {
   fi: {
     'Card 1 title': 'MERKITYKSELLINEN ESINE',
@@ -67,6 +77,6 @@ const cards = {
   },
 };
 
-const fi = { ...cardDict.fi, ...cards.fi, ...buttons.fi };
+const fi = { ...cardDict.fi, ...cards.fi, ...buttons.fi, ...signup.fi };
 const se = { ...cardDict.se, ...cards.se };
 export const dictionary = { fi, se };

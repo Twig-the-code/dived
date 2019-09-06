@@ -1,6 +1,6 @@
 import React from 'react';
-import Amplify, { Auth, I18n } from 'aws-amplify';
-import { withAuthenticator } from 'aws-amplify-react';
+import Amplify, { I18n } from 'aws-amplify';
+import { withAuthenticator, Authenticator, SignIn, SignUp } from 'aws-amplify-react';
 
 import Header from './components/Header';
 import Cards from './components/Cards';
@@ -9,15 +9,15 @@ import getAllCards from './actions/get-all-cards';
 import getAllFinishedCards from './actions/get-all-finished-cards';
 import markAsFinished from './actions/mark-card-as-finished';
 import markAsOpen from './actions/mark-card-as-open';
-import getAllSchowols from './actions/get-all-schools';
 
-import {dictionary} from './i18n/dict'
+import { dictionary } from './i18n/dict';
 import { fakeData } from './helpers/fakeData';
 
 import './App.css';
 
 import config from './aws-exports';
 import Setup from './components/Setup';
+import { MyCustomSignUp } from "./components/auth/CustomSignUp";
 
 Amplify.configure(config);
 I18n.setLanguage('fi');
@@ -84,44 +84,68 @@ class App extends React.Component {
   }
 
   render() {
-    const { finishedCards, cards, name, schools } = this.state;
-    const journey = { total: cards.length, finished: finishedCards.length };
+    if (this.props.authState == "signedIn") {
+      const { finishedCards, cards, name, schools } = this.state;
+      const journey = { total: cards.length, finished: finishedCards.length };
+      return (
+        <main className="App">
+          <Header name={name} journey={journey} />
+          <Setup schools={schools} cities={fakeData.cities} />
+          <Cards
+            cards={cards}
+            finishedCards={finishedCards}
+            actions={actions(this)}
+          />
+          <Info />
+        </main>
+      );
+    } else {
+      return null;
+    }
+
+  }
+}
+
+const func = () => {
+  console.log('HERE');
+  // eslint-disable-next-line no-unused-expressions
+  return <Authenticator hideDefault>
+    <SignIn />
+    <MyCustomSignUp override="SignUp" />
+  </Authenticator>
+};
+
+func();
+
+const onSignedIn = props => (
+  <div>
+    <p>FOO</p>
+  </div>
+);
+
+class AppWithAuth extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+  }
+
+  render() {
     return (
-      <main className="App">
-        <Header name={name} journey={journey} />
-        <Setup schools={schools} cities={fakeData.cities} />
-        <Cards
-          cards={cards}
-          finishedCards={finishedCards}
-          actions={actions(this)}
-        />
-        <Info />
-      </main>
+      <div>
+        <Authenticator hide={[SignUp]} amplifyConfig={config}>
+          <MyCustomSignUp override="SignUp" />
+          <App />
+        </Authenticator>
+      </div>
     );
   }
 }
 
-const signUpConfig = {
-  // hideAllDefaults: true,
-  signUpFields: [
-    {
-      label: 'Käyttäjänimi',
-      key: 'username',
-      required: true,
-      placeholder: 'Käyttäjänimi',
-      type: 'string',
-      displayOrder: 1,
-    },
-    {
-      label: 'Salasana',
-      key: 'password',
-      required: true,
-      placeholder: 'Salasana',
-      type: 'password',
-      displayOrder: 2,
-    },
-  ],
-};
 
-export default withAuthenticator(App, true);
-// export default withAuthenticator(App, {signUpConfig} );
+
+// export default AppWithAuth;
+
+const signUpConfig = {
+  header: "Luo tunnus DivED -seurantaan",
+  hiddenDefaults: ["phone_number", "email"]
+}
+export default withAuthenticator(App, { signUpConfig } )

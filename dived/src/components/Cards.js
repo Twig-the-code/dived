@@ -7,7 +7,11 @@ import {
   faListAlt,
   faEye,
 } from '@fortawesome/free-regular-svg-icons';
-import Card, { CardActions, ConfirmCard, ConfirmRemovalOfProgressCard } from './Card';
+import Card, { CardActions } from './Card';
+import {
+  ConfirmCard,
+  ConfirmRemovalOfProgressCard,
+} from './card/ConfirmCardProgress';
 
 const isFinished = (finishedCards, card) => {
   return finishedCards.includes(card.id);
