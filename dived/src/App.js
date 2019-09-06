@@ -1,6 +1,6 @@
 import React from 'react';
 import Amplify, { I18n } from 'aws-amplify';
-import { withAuthenticator, Authenticator, SignIn, SignUp } from 'aws-amplify-react';
+import { withAuthenticator, Authenticator, SignIn, SignUp, ConfirmSignUp } from 'aws-amplify-react';
 
 import Header from './components/Header';
 import Cards from './components/Cards';
@@ -123,6 +123,16 @@ const onSignedIn = props => (
   </div>
 );
 
+class MyCustomComfirmSignUp extends ConfirmSignUp {
+  constructor(props){
+    super(props);
+  }
+  render(){
+    super.changeState("signIn")
+    return (<p>HERE</p>)
+  }
+}
+
 class AppWithAuth extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -131,8 +141,9 @@ class AppWithAuth extends React.Component {
   render() {
     return (
       <div>
-        <Authenticator hide={[SignUp]} amplifyConfig={config}>
+        <Authenticator hide={[SignUp, ConfirmSignUp]} amplifyConfig={config}>
           <MyCustomSignUp override="SignUp" />
+          <MyCustomComfirmSignUp/>
           <App />
         </Authenticator>
       </div>
@@ -142,10 +153,10 @@ class AppWithAuth extends React.Component {
 
 
 
-// export default AppWithAuth;
+export default AppWithAuth;
 
 const signUpConfig = {
   header: "Luo tunnus DivED -seurantaan",
   hiddenDefaults: ["phone_number", "email"]
 }
-export default withAuthenticator(App, { signUpConfig } )
+// export default withAuthenticator(App, { signUpConfig } )

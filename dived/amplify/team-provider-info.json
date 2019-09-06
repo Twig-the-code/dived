@@ -1,18 +1,18 @@
 {
     "dev": {
         "awscloudformation": {
-            "AuthRoleName": "dived-dev-20190613094040-authRole",
-            "UnauthRoleArn": "arn:aws:iam::672860269515:role/dived-dev-20190613094040-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::672860269515:role/dived-dev-20190613094040-authRole",
+            "AuthRoleName": "dived-dev-20190906171054-authRole",
+            "UnauthRoleArn": "arn:aws:iam::672860269515:role/dived-dev-20190906171054-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::672860269515:role/dived-dev-20190906171054-authRole",
             "Region": "eu-west-1",
-            "DeploymentBucketName": "dived-dev-20190613094040-deployment",
-            "UnauthRoleName": "dived-dev-20190613094040-unauthRole",
-            "StackName": "dived-dev-20190613094040",
-            "StackId": "arn:aws:cloudformation:eu-west-1:672860269515:stack/dived-dev-20190613094040/29a0c380-8da6-11e9-818c-06b176c04864"
+            "DeploymentBucketName": "dived-dev-20190906171054-deployment",
+            "UnauthRoleName": "dived-dev-20190906171054-unauthRole",
+            "StackName": "dived-dev-20190906171054",
+            "StackId": "arn:aws:cloudformation:eu-west-1:672860269515:stack/dived-dev-20190906171054/23fb8b20-d0b0-11e9-8256-0ade9df0c35e"
         },
         "categories": {
             "auth": {
-                "dived50b637c3": {}
+                "divede491ba7ae491ba7a": {}
             }
         }
     }
