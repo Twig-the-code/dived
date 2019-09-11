@@ -1,6 +1,6 @@
 import React from 'react';
 import Amplify, { I18n } from 'aws-amplify';
-import { withAuthenticator, Authenticator, SignIn, SignUp, ConfirmSignUp } from 'aws-amplify-react';
+import { Authenticator, ConfirmSignUp, VerifyContact } from 'aws-amplify-react';
 
 import Header from './components/Header';
 import Cards from './components/Cards';
@@ -12,12 +12,12 @@ import markAsOpen from './actions/mark-card-as-open';
 
 import { dictionary } from './i18n/dict';
 import { fakeData } from './helpers/fakeData';
+import { cards } from './helpers/cards';
 
 import './App.css';
 
 import config from './aws-exports';
 import Setup from './components/Setup';
-import { MyCustomSignUp } from "./components/auth/CustomSignUp";
 
 Amplify.configure(config);
 I18n.setLanguage('fi');
@@ -77,6 +77,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { name: 'Oravat', cards: [], finishedCards: [] };
+    this._validAuthStates = ['signedIn'];
   }
 
   componentDidMount() {
@@ -84,8 +85,8 @@ class App extends React.Component {
   }
 
   render() {
-    if (this.props.authState == "signedIn") {
-      const { finishedCards, cards, name, schools } = this.state;
+    if (this.props.authState == 'signedIn') {
+      const { finishedCards, name, schools } = this.state;
       const journey = { total: cards.length, finished: finishedCards.length };
       return (
         <main className="App">
@@ -99,64 +100,73 @@ class App extends React.Component {
           <Info />
         </main>
       );
-    } else {
-      return null;
+    }
+    return null;
+  }
+}
+
+const wrapHOC = WrappedComponent => {
+  class Wrapper extends React.PureComponent {
+    componentDidUpdate(prevProps, prevState, snapshot) {
+      const { authState } = this.props;
+
+      if (authState === 'verifyContact') {
+        const { onStateChange } = this.props;
+        onStateChange('signedIn');
+      }
     }
 
+    render() {
+      return (
+        <div>
+          <WrappedComponent {...this.props} />
+        </div>
+      );
+    }
   }
-}
 
-const func = () => {
-  console.log('HERE');
-  // eslint-disable-next-line no-unused-expressions
-  return <Authenticator hideDefault>
-    <SignIn />
-    <MyCustomSignUp override="SignUp" />
-  </Authenticator>
+  return Wrapper;
 };
 
-func();
+const MyAuthenticatedApp = wrapHOC(App);
+const signUpConfig = {
+  header: 'Luo tunnus DivED -seurantaan',
+  hiddenDefaults: ['phone_number', 'email'],
+};
 
-const onSignedIn = props => (
-  <div>
-    <p>FOO</p>
-  </div>
-);
-
-class MyCustomComfirmSignUp extends ConfirmSignUp {
-  constructor(props){
-    super(props);
-  }
-  render(){
-    super.changeState("signedIn")
-    return (<p>HERE</p>)
-  }
-}
-
-class AppWithAuth extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+class MyCustomConfirmSignup extends ConfirmSignUp {
+  constructor() {
+    super();
+    this._validAuthStates = ['signIn'];
   }
 
   render() {
-    return (
-      <div>
-        <Authenticator hide={[SignUp, ConfirmSignUp]} amplifyConfig={config}>
-          <MyCustomSignUp override="SignUp" />
-          <MyCustomComfirmSignUp/>
-          <App />
-        </Authenticator>
-      </div>
-    );
+    const { authState, authData } = this.props;
+    console.log({ authState });
+    return authState === 'confirmSignUp' ? (
+      <p>
+        Käyttäjän luonti onnistui! Kirjaudu sisään
+        <button onClick={() => this.props.onStateChange('signIn')}>
+          tästä
+        </button>
+      </p>
+    ) : null;
   }
 }
 
-
+const AppWithAuth = () => (
+  <Authenticator
+    hide={[ConfirmSignUp, VerifyContact]}
+    signUpConfig={signUpConfig}
+    amplifyConfig={config}
+  >
+    {/* <MyCustomSignUp override="SignUp" /> */}
+    {/* <MyCustomComfirmSignUp override="ConfirmSignUp"/> */}
+    <MyCustomConfirmSignup />
+    <MyAuthenticatedApp onVerify={Authenticator.changeState} />
+  </Authenticator>
+);
 
 export default AppWithAuth;
 
-const signUpConfig = {
-  header: "Luo tunnus DivED -seurantaan",
-  hiddenDefaults: ["phone_number", "email"]
-}
-// export default withAuthenticator(App, { signUpConfig } )
+// export default withAuthenticator(App, { signUpConfig })

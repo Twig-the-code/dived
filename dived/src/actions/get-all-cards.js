@@ -1,4 +1,4 @@
-import { cards } from '../helpers/fakeData';
+import { cards } from '../helpers/cards';
 
 export default async function() {
   return { done: cards };
