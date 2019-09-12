@@ -41,12 +41,16 @@ const cardDict = {
 
 I18n.putVocabularies(dictionary);
 
+async function updateFinishedCards(username, comp) {
+  const { done: finishedCards } = await getAllFinishedCards(username);
+  comp.setState(state => ({ finishedCards }));
+}
+
 const updateInitialState = async comp => {
   const { username } = comp.props.authData;
   const { done: cards } = await getAllCards();
   comp.setState(state => ({ cards }));
-  const { done: finishedCards } = await getAllFinishedCards(username);
-  comp.setState(state => ({ finishedCards }));
+  await updateFinishedCards(username, comp);
 };
 
 const markCardAsFinished = comp => async card => {
@@ -84,8 +88,19 @@ class App extends React.Component {
     updateInitialState(this);
   }
 
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    const { finishedCards } = this.state;
+    console.log(finishedCards, nextState)
+    const ret = finishedCards.length === 0 || finishedCards.sort().join(',') !== nextState.finishedCards.sort().join(',');
+    console.log(ret);
+    return ret
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {}
+
   render() {
     if (this.props.authState == 'signedIn') {
+      updateFinishedCards(this.props.authData.username, this);
       const { finishedCards, name, schools } = this.state;
       const journey = { total: cards.length, finished: finishedCards.length };
       return (
@@ -142,7 +157,6 @@ class MyCustomConfirmSignup extends ConfirmSignUp {
 
   render() {
     const { authState, authData } = this.props;
-    console.log({ authState });
     return authState === 'confirmSignUp' ? (
       <p>
         Käyttäjän luonti onnistui! Kirjaudu sisään

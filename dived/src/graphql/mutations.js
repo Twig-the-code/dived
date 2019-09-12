@@ -1,8 +1,8 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const addFinishedCard = `mutation AddFinishedCard($input: FinishedCardInput!) {
-  addFinishedCard(input: $input) {
+export const markCardAsFinished = `mutation MarkCardAsFinished($input: FinishedCardInput!) {
+  markCardAsFinished(input: $input) {
     cardId
   }
 }

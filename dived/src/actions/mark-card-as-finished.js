@@ -1,13 +1,13 @@
-import { addFinishedCard } from '../graphql/mutations';
+import { markCardAsFinished } from '../graphql/mutations';
 import { wrapGraphQLOperation } from './wrap-promise';
 
 export default async function(cardId) {
-  const { done, error } = await wrapGraphQLOperation(addFinishedCard, {
+  const { done, error } = await wrapGraphQLOperation(markCardAsFinished, {
     input: { cardId },
   });
 
   if (done) {
-    return { done: done.data.addFinishedCard.items };
+    return { done: done.data.markCardAsFinished.items };
   }
   return { error };
 }

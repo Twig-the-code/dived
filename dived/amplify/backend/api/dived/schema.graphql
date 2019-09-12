@@ -1,4 +1,10 @@
-type City @model {
+type City
+@model
+@auth(
+    rules: [
+        {allow: groups, groups: ["admins"], mutations: [create, update, delete], queries: null},
+    ]
+) {
     id: ID!
     nameFi: String!
     nameSe: String!
@@ -8,7 +14,12 @@ type City @model {
 
 type School
 @key(fields: ["slug"])
-@model {
+@model
+@auth(
+    rules: [
+        {allow: groups, groups: ["admins"]}
+    ]
+) {
     slug: String!
     city: City! @connection(name: "Schools")
     name: String!
@@ -42,7 +53,7 @@ input FinishedCardInput {
     cardId: Int!
 }
 type Mutation {
-    addFinishedCard(input: FinishedCardInput!): CardProgress
+    markCardAsFinished(input: FinishedCardInput!): CardProgress
     removeFinishedCard(input: FinishedCardInput!): CardProgress
 }
 
