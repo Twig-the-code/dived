@@ -90,10 +90,13 @@ class App extends React.Component {
 
   shouldComponentUpdate(nextProps, nextState, nextContext) {
     const { finishedCards } = this.state;
-    console.log(finishedCards, nextState)
-    const ret = finishedCards.length === 0 || finishedCards.sort().join(',') !== nextState.finishedCards.sort().join(',');
-    console.log(ret);
-    return ret
+    const { authState } = this.props;
+    const changeInFinishedCards =
+      finishedCards.length === 0 ||
+      finishedCards.sort().join(',') !==
+        nextState.finishedCards.sort().join(',');
+    const changeInAuthState = authState !== nextProps.authState;
+    return changeInFinishedCards || changeInAuthState;
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {}
@@ -128,6 +131,7 @@ const wrapHOC = WrappedComponent => {
       if (authState === 'verifyContact') {
         const { onStateChange } = this.props;
         onStateChange('signedIn');
+        window.location.reload();
       }
     }
 
@@ -160,7 +164,10 @@ class MyCustomConfirmSignup extends ConfirmSignUp {
     return authState === 'confirmSignUp' ? (
       <p>
         Käyttäjän luonti onnistui! Kirjaudu sisään
-        <button onClick={() => this.props.onStateChange('signIn')}>
+        <button
+          type="button"
+          onClick={() => this.props.onStateChange('signIn')}
+        >
           tästä
         </button>
       </p>
